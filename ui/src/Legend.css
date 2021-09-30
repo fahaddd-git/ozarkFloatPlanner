@@ -1,0 +1,19 @@
+/*Legend specific*/
+
+  /* text color of the legend label and line weight*/
+ 
+  .legend {
+    padding: 6px; 
+    font: 12px Arial, Helvetica, sans-serif;
+    background: rgba(255, 255, 255, 0.70);
+    /*box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);*/
+    /*border-radius: 5px;*/
+
+    /*vertical height of legend*/
+    line-height: 14px;
+
+    /*text color*/
+    color: rgba(0, 0, 0);
+  }
+
+ 
