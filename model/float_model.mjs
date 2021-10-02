@@ -6,11 +6,20 @@ import { StationData } from './riverStationSchema.mjs'
 
 dotenv.config();
 
+let connection;
+if(process.env.NODE_ENV==="production"){
+    connection=process.env.MONGODB_CONNECTION_STRING
+} else{
+    connection="mongodb://localhost:27017/floatplanner"
+    
+}
+
 // Prepare to the database movies_db in the MongoDB server running locally on port 27017
 mongoose.connect(
-    process.env.MONGODB_CONNECTION_STRING,
+    connection,
     // "mongodb://localhost:27017/floatplanner",
     { useNewUrlParser: true, useUnifiedTopology: true }
+
 );
 
 // Connect to to the database
@@ -126,4 +135,4 @@ const findStationByName = async (name) => {
 //     return result.deletedCount;
 // }
 
-export { findRiverById, findRivers, findRiverByName, findStationById, findStationByName, findRiverIdName };
+export { findRiverById, findRivers, findRiverByName, findStationByName, findRiverIdName };

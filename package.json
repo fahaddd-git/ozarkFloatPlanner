@@ -7,9 +7,13 @@
     "node": "14.17.3"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node float_controller.mjs",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ui && npm run build --prefix ui"
+    "build": "cd ui && npm run build",
+    "install-client": "cd ui && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "server": "nodemon float_controller.mjs",
+    "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix ui\"",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix ui\""
+    
   },
   "author": "",
   "license": "ISC",
