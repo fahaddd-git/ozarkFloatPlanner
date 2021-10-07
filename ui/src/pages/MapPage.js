@@ -15,6 +15,7 @@ import DistanceLine from "../components/DistanceLine.js";
 import Legend from "../components/Legend";
 import Dropdown from "../components/Dropdown";
 import MapCustomControl from "../utils/MapCustomControl.jsx";
+import Stations from "../components/Stations";
 
 const { BaseLayer, Overlay } = LayersControl;
 
@@ -22,6 +23,7 @@ export default function MapPage() {
   const [map, setMap] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [data, setData] = useState();
+  const [stationData, setStationData] = useState();
   const [bounds, setBounds] = useState(null);
   const [isMobile, setMobile] = useState(true);
 
@@ -35,6 +37,8 @@ export default function MapPage() {
 
   // ref to <FeatureGroup>
   const featureGroupRef = useRef();
+  // ref to <Stations>'s featureGroup
+  const stationsRef = useRef()
 
   useEffect(() => {
     // determines if mobile user
@@ -72,6 +76,12 @@ export default function MapPage() {
       return data;
     };
 
+    const getStations = async () => {
+      const response = await fetch(`/stations/Meramec%20River`);
+      const stations = await response.json();
+      return stations;
+    };
+
     getData()
       .then((receivedData) => {
         // calculates bounding box
@@ -91,6 +101,9 @@ export default function MapPage() {
         }
         // set data when received from api
         setData(receivedData);
+        getStations().then((stationInfo) => {
+          setStationData(stationInfo);
+        });
 
         // cleanup useEffect
         return () => {
@@ -117,7 +130,7 @@ export default function MapPage() {
       zoomControl={isMobile}
       fullscreenControl={isMobile}
       bounds={bounds}
-      style={{ height: " 100vh", width: "100vw" }}
+      style={{ height: "100vh", width: "100vw" }}
       whenCreated={setMap}
     >
       {/* container for dropdown box */}
@@ -128,6 +141,10 @@ export default function MapPage() {
       <LayersControl bubblingMouseEvents={false} collapsed={!isMobile}>
         {/* adds layers to map */}
         <Layers />
+        {/* adds components to monitoring stations overlay group */}
+        <Overlay name="Monitoring Stations" checked={true}>
+          {stationData && <Stations station={stationData} />}
+        </Overlay>
         {/* adds components to navigation overlay group */}
         <Overlay name="Navigation Overlay" checked={true}>
           {/* creates feature group organization for components */}
