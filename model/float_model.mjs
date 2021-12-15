@@ -16,8 +16,8 @@ if(process.env.NODE_ENV==="production"){
 
 // Prepare to the database movies_db in the MongoDB server running locally on port 27017
 mongoose.connect(
-    // connection,
-    "mongodb://localhost:27017/floatplanner",
+    connection,
+    // "mongodb://localhost:27017/floatplanner",
     { useNewUrlParser: true, useUnifiedTopology: true }
 
 );
