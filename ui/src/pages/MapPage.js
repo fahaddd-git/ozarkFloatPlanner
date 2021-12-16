@@ -23,7 +23,7 @@ export default function MapPage() {
   const [map, setMap] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [data, setData] = useState();
-  const [stationData, setStationData] = useState();
+  // const [stationData, setStationData] = useState();
   const [bounds, setBounds] = useState(null);
   const [isMobile, setMobile] = useState(true);
 
@@ -38,7 +38,7 @@ export default function MapPage() {
   // ref to <FeatureGroup>
   const featureGroupRef = useRef();
   // ref to <Stations>'s featureGroup
-  const stationsRef = useRef()
+  // const stationsRef = useRef()
 
   useEffect(() => {
     // determines if mobile user
@@ -101,9 +101,9 @@ export default function MapPage() {
         }
         // set data when received from api
         setData(receivedData);
-        getStations().then((stationInfo) => {
-          setStationData(stationInfo);
-        });
+        // getStations().then((stationInfo) => {
+        //   setStationData(stationInfo);
+        // });
 
         // cleanup useEffect
         return () => {
@@ -118,8 +118,11 @@ export default function MapPage() {
     return <>Loading...</>;
   }
 
+
   return (
     // sets max bounds of map, zoom level, zoom controls on/off, map bounds, map heigh
+  
+
     <MapContainer
       preferCanvas={true}
       maxBounds={[
@@ -130,7 +133,7 @@ export default function MapPage() {
       zoomControl={isMobile}
       fullscreenControl={isMobile}
       bounds={bounds}
-      style={{ height: "100vh", width: "100vw" }}
+      // style={{ height: "100vh" }}
       whenCreated={setMap}
     >
       {/* container for dropdown box */}
@@ -143,7 +146,7 @@ export default function MapPage() {
         <Layers />
         {/* adds components to monitoring stations overlay group */}
         <Overlay name="Monitoring Stations" checked={true}>
-          {stationData && <Stations station={stationData} />}
+          {/* {stationData && <Stations station={stationData} />} */}
         </Overlay>
         {/* adds components to navigation overlay group */}
         <Overlay name="Navigation Overlay" checked={true}>
@@ -162,5 +165,6 @@ export default function MapPage() {
         </Overlay>
       </LayersControl>
     </MapContainer>
+
   );
 }
