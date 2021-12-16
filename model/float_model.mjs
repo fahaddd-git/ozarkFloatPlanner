@@ -7,7 +7,7 @@ import { StationData } from './riverStationSchema.mjs'
 dotenv.config();
 
 let connection;
-if(process.env.NODE_ENV==="production"){
+if(process.env.NODE_ENV==="development"){
     connection=process.env.MONGODB_CONNECTION_STRING
 } else{
     connection="mongodb://localhost:27017/floatplanner"
@@ -16,8 +16,8 @@ if(process.env.NODE_ENV==="production"){
 
 // Prepare to the database movies_db in the MongoDB server running locally on port 27017
 mongoose.connect(
-    // connection,
-    "mongodb://localhost:27017/floatplanner",
+    connection,
+    // "mongodb://localhost:27017/floatplanner",
     { useNewUrlParser: true, useUnifiedTopology: true }
 
 );

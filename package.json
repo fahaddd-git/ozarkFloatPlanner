@@ -13,7 +13,6 @@
     "server": "nodemon float_controller.mjs",
     "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix ui\"",
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix ui\""
-    
   },
   "author": "",
   "license": "ISC",
