@@ -28,8 +28,7 @@ What needs improvement:
  - API calls: separate into a diff file in utils
  - MapPage is potentially too complicated atm
  - DRY imports in Markers and Stations
- - Make AboutPage look better, add some branding
- - See if Legend.css is needed at all even
+ - Make AboutPage look better, add some branding 
  - Organize css
  - Create readme (use elements from old repo if needed)
  - download Airbnb dependency for eslint
