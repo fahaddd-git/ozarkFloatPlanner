@@ -11,11 +11,37 @@ import "leaflet/dist/leaflet.css";
 import Layers from "../components/Layers";
 import River from "../components/River";
 import Markers from "../components/Markers";
-import DistanceLine from "../components/DistanceLine.js";
+import DistanceLine from "../components/DistanceLine";
 import Legend from "../components/Legend";
 import Dropdown from "../components/Dropdown";
-import MapCustomControl from "../utils/MapCustomControl.jsx";
-import Stations from "../components/Stations";
+import MapCustomControl from "../utils/MapCustomControl";
+// import Stations from "../components/Stations";
+
+/*
+What needs improvement:
+ - Create popup or modal for saying how to use the tool
+ - update dependencies
+ - implement some logging software (not sure how this works with heroku)
+ - add JSdoc airbnb style
+ - change favicon to something else more related
+ - Legend: needs to be more React-ive, ditch the innerhtml, see how to put the Measurements.jsx inside the legend
+ - API calls: separate into a diff file in utils
+ - MapPage is potentially too complicated atm
+ - DRY imports in Markers and Stations
+ - Make AboutPage look better, add some branding
+ - See if Legend.css is needed at all even
+ - Organize css
+ - Create readme (use elements from old repo if needed)
+ - download Airbnb dependency for eslint
+ - error handling for ui and api
+ - add a spinner for loading
+ - potentially make the river select box use bootstrap
+
+ - Potentially manipulate data in DB for better performance, no need for repetetive calculations
+ - Implement Redis or some kind of caching
+ - deploy to AWS
+
+*/
 
 const { BaseLayer, Overlay } = LayersControl;
 
@@ -118,10 +144,8 @@ export default function MapPage() {
     return <>Loading...</>;
   }
 
-
   return (
-    // sets max bounds of map, zoom level, zoom controls on/off, map bounds, map heigh
-  
+    // sets max bounds of map, zoom level, zoom controls on/off, map bounds, map height
 
     <MapContainer
       preferCanvas={true}
@@ -165,6 +189,5 @@ export default function MapPage() {
         </Overlay>
       </LayersControl>
     </MapContainer>
-
   );
 }

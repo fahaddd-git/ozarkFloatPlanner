@@ -12,6 +12,7 @@ import "../App.css";
 export default function AboutPage() {
   const emailAddress = "ozarkfloatplanner@gmail.com";
 
+  // creater a nicer about page with bootstrap
   return (
     <div>
       <Container className="center-screen">

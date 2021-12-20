@@ -18,7 +18,7 @@ export default function GeoJsonWithUpdates(props) {
     if (layer) {
       layer.clearLayers().addData(props.data);
       // clearLayers() seems to remove the `pathOptions`, `style` and `interactive` prop as well
-      // Reset path options it here
+      // Reset path options here
       if (props.pathOptions) {
         layer.setStyle(props.pathOptions);
       

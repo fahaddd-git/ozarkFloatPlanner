@@ -3,6 +3,8 @@ import ReactDOMServer from "react-dom/server";
 import L from "leaflet";
 import MarkerPopup from "./MarkerPopup";
 
+// DRY this part with repeats in Markers.js again
+
 // import bugged marker shadow
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import GeoJsonWithUpdates from "./GeojsonUpdates";
@@ -26,7 +28,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
  */
 
 export default function Stations({ station }) {
-  let siteMonitoringPointsStyle = {
+  const siteMonitoringPointsStyle = {
     radius: 10,
     fillColor: "#5e0404",
     color: "#ffffff",
@@ -68,6 +70,7 @@ export default function Stations({ station }) {
 
   return (
     <GeoJsonWithUpdates
+      // use lodash for key
       key={station.latlng}
       data={station}
       onEachFeature={onEachFeature}

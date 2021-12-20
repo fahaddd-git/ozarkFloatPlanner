@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "../../src/Legend.css";
+import "../../src/App.css";
 
 /**
  * Updates Legend component with current distance and total distance
