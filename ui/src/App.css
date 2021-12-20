@@ -1,75 +1,32 @@
-.App {
-  display: flex;
-  text-align: center;
-  /* flex: 1 0 auto; */
-
+html, body, #root {
+  height: 100%;
 }
 
-
-
-
-
-/* .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-} */
-
-
-
-
-/* .react-select__menu {
-  position:absolute;
-  } */
-
-.leaflet-container{
+.leaflet-container {
   width: 100vw;
   height: 100%;
   overflow: none;
-  position: absolute
-
+  position: absolute;
 }
 
 /* left aligns the map layer selection pane */
-.leaflet-control-layers-expanded{
+.leaflet-control-layers-expanded {
   text-align: left;
 }
 
-table{
-  float:right;
-  position:absolute;
-  bottom:0px;
+table {
+  float: right;
+  position: absolute;
+  bottom: 0px;
 }
 
-
-
-
-
-/* .center-screen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 100vh;
-} */
-
- 
 .legend {
-  padding: 6px; 
+  text-align: center;
+  padding: 6px;
   font: 12px Arial, Helvetica, sans-serif;
-  background: rgba(255, 255, 255, 0.70);
-  /*box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);*/
-  /*border-radius: 5px;*/
-
+  background: rgba(255, 255, 255, 0.7);
   /*vertical height of legend*/
   line-height: 14px;
-
   /*text color*/
   color: rgba(0, 0, 0);
 }
-

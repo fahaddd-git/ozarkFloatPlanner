@@ -29,7 +29,6 @@ What needs improvement:
  - MapPage is potentially too complicated atm
  - DRY imports in Markers and Stations
  - Make AboutPage look better, add some branding 
- - Organize css
  - Create readme (use elements from old repo if needed)
  - download Airbnb dependency for eslint
  - error handling for ui and api
