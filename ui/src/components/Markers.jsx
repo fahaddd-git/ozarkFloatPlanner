@@ -1,19 +1,18 @@
 import React from "react";
 import { Marker, Popup } from "react-leaflet";
-import L from "leaflet";
 
-// import bugged marker shadow
+// set the default marker icon due to bug with Leaflet
+
+import { icon } from "leaflet";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
-
-// set the default icon
-let DefaultIcon = L.icon({
+let DefaultIcon = icon({
   iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
   shadowUrl: iconShadow,
   iconSize: [25, 41],
   iconAnchor: [10, 41],
   popupAnchor: [2, -40],
 });
-L.Marker.prototype.options.icon = DefaultIcon;
+// L.Marker.prototype.options.icon = DefaultIcon;
 
 /**
  * Creates marker components on riverbed on user click with popup containing lat/lng coordinates
@@ -28,6 +27,7 @@ export default function Markers({ markers }) {
     return markers.map((position, id) => (
       // create markers with popups
       <Marker
+        icon={DefaultIcon}
         key={id}
         position={position}
         eventHandlers={{

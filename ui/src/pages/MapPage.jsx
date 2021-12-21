@@ -3,7 +3,7 @@ import { MapContainer, LayersControl, FeatureGroup } from "react-leaflet";
 import bbox from "@turf/bbox";
 import { Browser } from "leaflet";
 import { getRiverData } from "../utils/callAPI";
-//fullscreen leaflet imports
+// fullscreen leaflet imports
 import "leaflet-fullscreen/dist/Leaflet.fullscreen.js";
 import "leaflet-fullscreen/dist/leaflet.fullscreen.css";
 // core leaflet imports
@@ -25,9 +25,7 @@ What needs improvement:
  - implement some logging software (not sure how this works with heroku)
  - add JSdoc airbnb style
  - Legend: needs to be more React-ive, ditch the innerhtml, see how to put the Measurements.jsx inside the legend
- - API calls: separate into a diff file in utils
  - MapPage is potentially too complicated atm
- - DRY imports in Markers and Stations
  - add some branding 
  - Create readme (use elements from old repo if needed)
  - error handling for ui and api
@@ -40,7 +38,7 @@ What needs improvement:
 
 */
 
-const { BaseLayer, Overlay } = LayersControl;
+const { Overlay } = LayersControl;
 
 export default function MapPage() {
   const [map, setMap] = useState(null);
@@ -61,7 +59,6 @@ export default function MapPage() {
   };
 
   // calculates bounding box for map
-
   function calculateBounds(riverData) {
     const bboxArray = bbox(riverData);
     const corner1 = [bboxArray[1], bboxArray[0]];
@@ -76,9 +73,8 @@ export default function MapPage() {
   // const stationsRef = useRef()
 
   useEffect(() => {
-    // determines if mobile user
-    Browser.mobile? setMobile(false) : setMobile(true)
-
+    // determines if mobile user for leaflet-fullscreen
+    Browser.mobile ? setMobile(false) : setMobile(true);
   }, []);
 
   // shows and flies to user location
@@ -98,23 +94,9 @@ export default function MapPage() {
   // }, [map]);
 
   useEffect(() => {
-    // fetches the data async from the api async
-    // const getData = async () => {
-    //   const response = await fetch(`/riverbed/${riverID}`);
-    //   const data = await response.json();
-    //   return data;
-    // };
-
-    // const getStations = async () => {
-    //   const response = await fetch(`/stations/Meramec%20River`);
-    //   const stations = await response.json();
-    //   return stations;
-    // };
-
     let abortController = new AbortController();
 
     try {
-      setLoading(true)
       getRiverData(riverID).then((receivedData) => {
         const bounds = calculateBounds(receivedData);
         // map set, initial loading complete fly to next selected river
@@ -123,7 +105,7 @@ export default function MapPage() {
           // clears legend pane (improve this)
           document.getElementsByClassName("button-class")[0].click();
         } else {
-          // set initial bounds
+          // set initial map bounds
           setBounds(bounds);
         }
         // set riverdata when received from api
@@ -135,24 +117,28 @@ export default function MapPage() {
       });
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false);
     }
-
-    // cleanup useEffect
+    // cleanup useEffect async functions
     return () => {
       abortController.abort();
     };
   }, [riverID]);
 
   // prevents map from loading before data/bounds are found
-  if (!bounds) {
-    return <>Loading...</>;
+  if (bounds) {
+    return (
+      <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+        <div className="spinner-border" role="status">
+          {/* added for accessibility */}
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p className="pt-2">Loading   .  . .</p>
+      </div>
+    );
   }
 
   return (
     // sets max bounds of map, zoom level, zoom controls on/off, map bounds, map height
-
     <MapContainer
       preferCanvas={true}
       maxBounds={[
@@ -163,7 +149,6 @@ export default function MapPage() {
       zoomControl={isMobile}
       fullscreenControl={isMobile}
       bounds={bounds}
-      // style={{ height: "100vh" }}
       whenCreated={setMap}
     >
       {/* container for dropdown box */}

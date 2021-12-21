@@ -1,81 +1,82 @@
-import React, { useCallback, useEffect } from "react";
-import ReactDOMServer from "react-dom/server";
-import L from "leaflet";
-import MarkerPopup from "./MarkerPopup";
+// River monitoring stations- TO BE IMPLEMENTED
 
-// DRY this part with repeats in Markers.js again
+// import React, { useCallback, useEffect } from "react";
+// import ReactDOMServer from "react-dom/server";
+// // import L from "leaflet";
+// import MarkerPopup from "./MarkerPopup";
 
-// import bugged marker shadow
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import GeoJsonWithUpdates from "./GeojsonUpdates";
 
-// set the default icon
-let DefaultIcon = L.icon({
-  iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
-  shadowUrl: iconShadow,
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-});
-L.Marker.prototype.options.icon = DefaultIcon;
+// // import bugged marker shadow
+// // import iconShadow from "leaflet/dist/images/marker-shadow.png";
+// // import GeoJsonWithUpdates from "./GeojsonUpdates";
 
-/**
- * Creates marker components on riverbed on user click with popup containing lat/lng coordinates
- * @param {Array} stations Array of stations
- * @returns <Marker>
- *             <Popup/>
- *          </Marker
- */
+// // // set the default icon
+// // let DefaultIcon = L.icon({
+// //   iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
+// //   shadowUrl: iconShadow,
+// //   iconSize: [25, 41],
+// //   iconAnchor: [10, 41],
+// //   popupAnchor: [2, -40],
+// // });
+// // L.Marker.prototype.options.icon = DefaultIcon;
 
-export default function Stations({ station }) {
-  const siteMonitoringPointsStyle = {
-    radius: 10,
-    fillColor: "#5e0404",
-    color: "#ffffff",
-    weight: 2,
-    opacity: 1,
-    fillOpacity: 1
-  };
+// /**
+//  * Creates marker components on riverbed on user click with popup containing lat/lng coordinates
+//  * @param {Array} stations Array of stations
+//  * @returns <Marker>
+//  *             <Popup/>
+//  *          </Marker
+//  */
 
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-  // console.log(station)
+// export default function Stations({ station }) {
+//   const siteMonitoringPointsStyle = {
+//     radius: 10,
+//     fillColor: "#5e0404",
+//     color: "#ffffff",
+//     weight: 2,
+//     opacity: 1,
+//     fillOpacity: 1
+//   };
 
-  const pointToLayer = (data, latlng) => {
-    console.log(data);
-    return L.circleMarker(latlng);
-  };
+//   function sleep(ms) {
+//     return new Promise((resolve) => setTimeout(resolve, ms));
+//   }
+//   // console.log(station)
 
-  const onEachFeature = (feature, layer) => {
-    console.log(feature);
-    const popupContent = ReactDOMServer.renderToString(
-      <MarkerPopup feature={feature} />
-    );
-    layer.bindPopup(popupContent);
-    // layer.bindPopup(`${feature.properties.uri}`)
-    layer.on("mouseover", function (e) {
-      layer.openPopup();
-      // layer.bringToFront()
-    });
-    layer.on("mouseout", function (e) {
-      layer.bringToBack();
-      sleep(1000).then(() => layer.closePopup());
-    });
-    layer.on("add", function (e) {
-        layer.bringToBack();
+//   const pointToLayer = (data, latlng) => {
+//     console.log(data);
+//     return L.circleMarker(latlng);
+//   };
+
+//   const onEachFeature = (feature, layer) => {
+//     console.log(feature);
+//     const popupContent = ReactDOMServer.renderToString(
+//       <MarkerPopup feature={feature} />
+//     );
+//     layer.bindPopup(popupContent);
+//     // layer.bindPopup(`${feature.properties.uri}`)
+//     layer.on("mouseover", function (e) {
+//       layer.openPopup();
+//       // layer.bringToFront()
+//     });
+//     layer.on("mouseout", function (e) {
+//       layer.bringToBack();
+//       sleep(1000).then(() => layer.closePopup());
+//     });
+//     layer.on("add", function (e) {
+//         layer.bringToBack();
         
-      });
-  };
+//       });
+//   };
 
-  return (
-    <GeoJsonWithUpdates
-      // use lodash for key
-      key={station.latlng}
-      data={station}
-      onEachFeature={onEachFeature}
-      style={siteMonitoringPointsStyle}
-      pointToLayer={pointToLayer}
-    />
-  );
-}
+//   return (
+//     <GeoJsonWithUpdates
+//       // use lodash for key
+//       key={station.latlng}
+//       data={station}
+//       onEachFeature={onEachFeature}
+//       style={siteMonitoringPointsStyle}
+//       pointToLayer={pointToLayer}
+//     />
+//   );
+// }
