@@ -20,17 +20,15 @@ import MapCustomControl from "../utils/MapCustomControl";
 /*
 What needs improvement:
  - Create popup or modal for saying how to use the tool
- - update dependencies
+ - update dependencies. DONE (react-leaflet-control potentially needed still?)
  - implement some logging software (not sure how this works with heroku)
  - add JSdoc airbnb style
- - change favicon to something else more related
  - Legend: needs to be more React-ive, ditch the innerhtml, see how to put the Measurements.jsx inside the legend
  - API calls: separate into a diff file in utils
  - MapPage is potentially too complicated atm
  - DRY imports in Markers and Stations
  - add some branding 
  - Create readme (use elements from old repo if needed)
- - download Airbnb dependency for eslint
  - error handling for ui and api
  - add a spinner for loading
  - potentially make the river select box use bootstrap
