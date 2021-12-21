@@ -8,7 +8,6 @@ import canoeingPic from "../images/canoeing.jpg";
 import cavePic from "../images/cave.jpg";
 import groupPic from "../images/group.jpg";
 import springPic from "../images/spring.jpg";
-import eaglePic from "../images/eagle.jpg";
 import riverPic from "../images/river.jpg";
 
 import "../App.css";
@@ -162,8 +161,8 @@ export default function AboutPage() {
               <Card.Body className="d-flex flex-column">
                 <Card.Text>
                   The Missouri Department of Conservation website is another
-                  awesome resource for planning your outdoor adventures. Check
-                  it out!
+                  fantastic resource for planning your outdoor adventures. Check
+                  them out!
                 </Card.Text>
                 <Button
                   className="mt-auto"
