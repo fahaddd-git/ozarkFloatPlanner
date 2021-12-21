@@ -30,3 +30,10 @@ table {
   /*text color*/
   color: rgba(0, 0, 0);
 }
+
+/* override for boostrap cards */
+.card{
+  width: 18rem;
+  padding: 10px;
+  margin: 10px;
+}
