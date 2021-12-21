@@ -1,5 +1,6 @@
 {
   "name": "floatplanner-ui",
+  "proxy": "http://localhost:3000/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -30,7 +31,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3000/",
   "eslintConfig": {
     "extends": [
       "react-app",

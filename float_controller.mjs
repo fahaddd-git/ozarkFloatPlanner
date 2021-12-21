@@ -21,11 +21,11 @@ let corsOptions = {
 };
 
 // check if this is necessary
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
+// app.use(
+//   express.urlencoded({
+//     extended: true,
+//   })
+// );
 
 // potentially combine these
 

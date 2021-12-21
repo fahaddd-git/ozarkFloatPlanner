@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { MapContainer, LayersControl, FeatureGroup } from "react-leaflet";
 import bbox from "@turf/bbox";
 import { Browser } from "leaflet";
+import { getRiverData } from "../utils/callAPI";
 //fullscreen leaflet imports
 import "leaflet-fullscreen/dist/Leaflet.fullscreen.js";
 import "leaflet-fullscreen/dist/leaflet.fullscreen.css";
@@ -49,6 +50,8 @@ export default function MapPage() {
   const [bounds, setBounds] = useState(null);
   const [isMobile, setMobile] = useState(true);
 
+  const [isLoading, setLoading] = useState(true);
+
   // sets default river by ID
   const [riverID, setRiverID] = useState("615265d7f7d6c9405d5cf61a");
 
@@ -57,6 +60,16 @@ export default function MapPage() {
     setMarkers([]);
   };
 
+  // calculates bounding box for map
+
+  function calculateBounds(riverData) {
+    const bboxArray = bbox(riverData);
+    const corner1 = [bboxArray[1], bboxArray[0]];
+    const corner2 = [bboxArray[3], bboxArray[2]];
+    const bounds = [corner2, corner1];
+    return bounds;
+  }
+
   // ref to <FeatureGroup>
   const featureGroupRef = useRef();
   // ref to <Stations>'s featureGroup
@@ -64,14 +77,8 @@ export default function MapPage() {
 
   useEffect(() => {
     // determines if mobile user
-    const determineMobile = () => {
-      if (Browser.mobile) {
-        return false;
-      }
-      return true;
-    };
-    // sets mobile state to be T or F
-    setMobile(determineMobile());
+    Browser.mobile? setMobile(false) : setMobile(true)
+
   }, []);
 
   // shows and flies to user location
@@ -92,47 +99,50 @@ export default function MapPage() {
 
   useEffect(() => {
     // fetches the data async from the api async
-    const getData = async () => {
-      const response = await fetch(`/riverbed/${riverID}`);
-      const data = await response.json();
-      return data;
-    };
+    // const getData = async () => {
+    //   const response = await fetch(`/riverbed/${riverID}`);
+    //   const data = await response.json();
+    //   return data;
+    // };
 
-    const getStations = async () => {
-      const response = await fetch(`/stations/Meramec%20River`);
-      const stations = await response.json();
-      return stations;
-    };
+    // const getStations = async () => {
+    //   const response = await fetch(`/stations/Meramec%20River`);
+    //   const stations = await response.json();
+    //   return stations;
+    // };
 
-    getData()
-      .then((receivedData) => {
-        // calculates bounding box
-        let abortController = new AbortController();
-        const bboxArray = bbox(receivedData);
-        const corner1 = [bboxArray[1], bboxArray[0]];
-        const corner2 = [bboxArray[3], bboxArray[2]];
-        const bounds = [corner2, corner1];
+    let abortController = new AbortController();
+
+    try {
+      setLoading(true)
+      getRiverData(riverID).then((receivedData) => {
+        const bounds = calculateBounds(receivedData);
         // map set, initial loading complete fly to next selected river
         if (map) {
           map.flyToBounds(bounds);
-          // clears legend pane
+          // clears legend pane (improve this)
           document.getElementsByClassName("button-class")[0].click();
         } else {
           // set initial bounds
           setBounds(bounds);
         }
-        // set data when received from api
+        // set riverdata when received from api
         setData(receivedData);
+        // station data (to be implemented)
         // getStations().then((stationInfo) => {
         //   setStationData(stationInfo);
         // });
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
 
-        // cleanup useEffect
-        return () => {
-          abortController.abort();
-        };
-      })
-      .catch((error) => console.log("error"));
+    // cleanup useEffect
+    return () => {
+      abortController.abort();
+    };
   }, [riverID]);
 
   // prevents map from loading before data/bounds are found
