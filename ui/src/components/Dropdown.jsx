@@ -14,23 +14,8 @@ export default function Dropdown({ riverID, setRiverID }) {
   // receives default river from MapPage
   let [selectedRiver, setSelectedRiver] = useState(riverID);
 
-  // on change handler for when dropdown menu changes
-  const onChange = (e) => {
-    // set selected river
-    setSelectedRiver(e.target.value);
-    //update map
-    setRiverID(e.target.value);
-  };
-
   // fetches data from the server to determine contents of dropdown box
   useEffect(() => {
-    // const getRivers = async () => {
-    //   const response = await fetch("/available");
-    //   const data = await response.json();
-    //   setAvailableRivers(data);
-    //   return data;
-    // };
-
     let abortController = new AbortController();
     try {
       getRivers(setAvailableRivers);
@@ -48,11 +33,19 @@ export default function Dropdown({ riverID, setRiverID }) {
 
   return (
     <select
-      // look into media query for this
-      className={Browser.mobile? "form-select form-select-sm":"form-select-lg form-select"}
+      className={
+        Browser.mobile
+          ? "form-select form-select-sm"
+          : "form-select form-select-lg"
+      }
       name="riverSelect"
       id="rivers"
-      onChange={onChange}
+      onChange={(e) => {
+        // set selected river
+        setSelectedRiver(e.target.value);
+        //update map
+        setRiverID(e.target.value);
+      }}
       value={selectedRiver}
     >
       {availableRivers

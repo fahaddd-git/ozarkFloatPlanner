@@ -29,7 +29,6 @@ export default function DrawDistance({ data, markers, index }) {
   return (
     <GeoJsonWithUpdates
       pathOptions={{ color: "red", weight: 6, opacity: 0.7 }}
-      // use lodash hash here for key eventually
       key={start}
       data={slice}
     >
