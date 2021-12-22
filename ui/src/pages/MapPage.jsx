@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { MapContainer, LayersControl, FeatureGroup } from "react-leaflet";
 import bbox from "@turf/bbox";
 import { Browser } from "leaflet";
@@ -48,13 +48,12 @@ export default function MapPage() {
   const [bounds, setBounds] = useState(null);
   const [isMobile, setMobile] = useState(true);
 
-  const [isLoading, setLoading] = useState(true);
-
   // sets default river by ID
   const [riverID, setRiverID] = useState("615265d7f7d6c9405d5cf61a");
 
   // resets markers
   const resetMarkers = () => {
+    console.log("reset")
     setMarkers([]);
   };
 
@@ -124,9 +123,10 @@ export default function MapPage() {
     };
   }, [riverID]);
 
-  // prevents map from loading before data/bounds are found
-  if (bounds) {
+  // prevents map from loading before data/bounds are found, displays loading spinner
+  if (!bounds) {
     return (
+      // center spinner in middle of screen
       <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
         <div className="spinner-border" role="status">
           {/* added for accessibility */}
@@ -151,8 +151,8 @@ export default function MapPage() {
       bounds={bounds}
       whenCreated={setMap}
     >
-      {/* container for dropdown box */}
-      <MapCustomControl position={"bottomleft"}>
+      {/* container for dropdown box, topleft for mobile */}
+      <MapCustomControl position={isMobile? "bottomleft" : "topleft"}>
         <Dropdown riverID={riverID} setRiverID={setRiverID} />
       </MapCustomControl>
       {/* sets layers control box to be collapsed if mobile */}

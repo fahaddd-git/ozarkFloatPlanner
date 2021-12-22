@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { DomUtil, Browser, control } from "leaflet";
-// simplify this import
 import "../../src/App.css";
 
 /**
