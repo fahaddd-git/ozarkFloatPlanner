@@ -1,10 +1,11 @@
-import React from "react";
+import React , {useEffect} from "react";
 import { useMap } from "react-leaflet";
 import lineSlice from "@turf/line-slice";
 import length from "@turf/length";
 
 import GeoJsonWithUpdates from "./GeojsonUpdates";
 import Measurements from "./Measurements";
+import DistanceTable from "./DistanceTable";
 
 /**
  * Draws multiple riverbed subsection on the map and calculates distance
@@ -16,7 +17,7 @@ import Measurements from "./Measurements";
             </GeoJsonWithUpdates>
  */
 
-export default function DrawDistance({ data, markers, index }) {
+export default function DrawDistance({ data, addMeasurement, markers, index }) {
   const map = useMap();
   // determine start and end points of line subsection
   const start = [markers[index].lng, markers[index].lat];
@@ -26,12 +27,20 @@ export default function DrawDistance({ data, markers, index }) {
   // calculate distance along river between start and end
   let travelDistance = length(slice, { units: "miles" });
 
+  // useEffect(() => {
+  //   addMeasurement(travelDistance)
+
+  // }, [travelDistance])
+  console.log("Measurement added in DrawDistance")
+
+
   return (
     <GeoJsonWithUpdates
       pathOptions={{ color: "red", weight: 6, opacity: 0.7 }}
       key={start}
       data={slice}
     >
+      {/* <DistanceTable data={travelDistance}></DistanceTable> */}
       <Measurements map={map} distance={travelDistance}></Measurements>
     </GeoJsonWithUpdates>
   );

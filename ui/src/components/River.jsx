@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import GeoJsonWithUpdates from "./GeojsonUpdates";
+import GeojsonUpdates from "./GeojsonUpdates";
 
 /**
  * Draws riverbed on the map
@@ -9,15 +9,16 @@ import GeoJsonWithUpdates from "./GeojsonUpdates";
  * @returns  <GeoJsonWithUpdates/>
  */
 
-export default function River({ data, markers, setMarkers }) {
+export default function River({ data, setMarkers }) {
+  // could potentially put Markers in here
   // click delay handler to fix bug with double click on iOS
   let [lastClick, setLastClick] = useState(0);
-  let delay = 200;
+  let delay = 150;
 
   // data not null, return the geojson component
   if (data) {
     return (
-      <GeoJsonWithUpdates
+      <GeojsonUpdates
         pathOptions={{ color: "#00daf2", weight: 5, opacity: 0.99 }}
         data={data}
         eventHandlers={{
@@ -29,9 +30,9 @@ export default function River({ data, markers, setMarkers }) {
               setLastClick(Date.now());
             }
             // update state of markers
-            let newMarkers = [...markers];
-            newMarkers.push(e.latlng);
-            setMarkers(newMarkers);
+            console.log("markers state set in River")
+            setMarkers(oldMarkers=> [...oldMarkers, e.latlng])
+            
           },
         }}
       />

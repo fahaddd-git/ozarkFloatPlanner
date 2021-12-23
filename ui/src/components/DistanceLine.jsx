@@ -8,7 +8,7 @@ import DrawDistance from "./DrawDistance";
  * @returns <DrawDistance key={position.lng} data={data} markers= {markers} index={index}>
  */
 
-export default function DistanceLine({ data, markers }) {
+export default function DistanceLine({ data, addMeasurement, markers }) {
   const markersLength = markers.length;
 
   const riverDistance = useMemo(() => {
@@ -17,12 +17,14 @@ export default function DistanceLine({ data, markers }) {
       // create lines between points 2 at a time until last point reached
       return markers.map((position, index) => {
         if (index < markersLength - 1) {
+          console.log("DistanceLine map")
           return (
             <DrawDistance
               key={index}
               data={data}
               markers={markers}
               index={index}
+              addMeasurement={addMeasurement}
             ></DrawDistance>
           );
         }

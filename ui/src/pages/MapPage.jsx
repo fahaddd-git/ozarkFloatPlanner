@@ -16,6 +16,7 @@ import DistanceLine from "../components/DistanceLine";
 import Legend from "../components/Legend";
 import Dropdown from "../components/Dropdown";
 import MapCustomControl from "../utils/MapCustomControl";
+import Distances from "../components/Distances";
 // import Stations from "../components/Stations";
 
 /*
@@ -48,12 +49,20 @@ export default function MapPage() {
   const [bounds, setBounds] = useState(null);
   const [isMobile, setMobile] = useState(true);
 
+  // put distance measurements here?
+  const [measurements, setMeasurements] =  useState([])
+  // const addMeasurement=(measurement) =>{
+  //   setMeasurements([...measurements, measurement])
+  //   console.log("measurement set in addMeasurement on MapPage")
+  //   console.log(measurements)
+  // }
+
   // sets default river by ID
   const [riverID, setRiverID] = useState("615265d7f7d6c9405d5cf61a");
 
   // resets markers
   const resetMarkers = () => {
-    console.log("reset")
+    console.log("reset markers")
     setMarkers([]);
   };
 
@@ -98,6 +107,7 @@ export default function MapPage() {
     try {
       getRiverData(riverID).then((receivedData) => {
         const bounds = calculateBounds(receivedData);
+        console.log("riverdata received bounds calculated")
         // map set, initial loading complete fly to next selected river
         if (map) {
           map.flyToBounds(bounds);
@@ -106,9 +116,11 @@ export default function MapPage() {
         } else {
           // set initial map bounds
           setBounds(bounds);
+          console.log("initial bounds set")
         }
         // set riverdata when received from api
         setData(receivedData);
+        console.log("data set")
         // station data (to be implemented)
         // getStations().then((stationInfo) => {
         //   setStationData(stationInfo);
@@ -167,9 +179,10 @@ export default function MapPage() {
         <Overlay name="Navigation Overlay" checked={true}>
           {/* creates feature group organization for components */}
           <FeatureGroup ref={featureGroupRef}>
-            <River data={data} markers={markers} setMarkers={setMarkers} />
+            <River data={data} setMarkers={setMarkers} />
             <Markers markers={markers}></Markers>
-            <DistanceLine data={data} markers={markers}></DistanceLine>
+            {/* <DistanceLine data={data} addMeasurement={addMeasurement} markers={markers}></DistanceLine> */}
+            <Distances setMeasurements={setMeasurements} data={data} markers={markers}></Distances>
           </FeatureGroup>
           {/* distance measurement legend */}
           <Legend
