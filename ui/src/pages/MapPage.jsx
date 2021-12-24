@@ -64,10 +64,10 @@ export default function MapPage() {
   const [riverID, setRiverID] = useState("615265d7f7d6c9405d5cf61a");
 
   // resets markers (debatable use of callback)
-  const resetMarkers = useCallback(() => {
-    console.log("reset markers")
-    setMarkers([])
-  },[]);
+  // const resetMarkers =  ()=>{
+  //   console.log("reset markers")
+  //   setMarkers([])
+  // };
 
   // calculates bounding box for map
   function calculateBounds(riverData) {
@@ -190,7 +190,7 @@ export default function MapPage() {
           {/* distance measurement legend */}
 
           <MapCustomControl position={"bottomright"}>
-              <NewLegend measurements={measurements} resetMarkers={resetMarkers} featureGroupRef={featureGroupRef}></NewLegend>
+              <NewLegend setSlice={setSlice} setMeasurements={setMeasurements} measurements={measurements} setMarkers={setMarkers} featureGroupRef={featureGroupRef}></NewLegend>
           </MapCustomControl>
 
           {/* <Legend
