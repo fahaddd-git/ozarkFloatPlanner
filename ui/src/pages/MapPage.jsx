@@ -17,6 +17,7 @@ import Legend from "../components/Legend";
 import Dropdown from "../components/Dropdown";
 import MapCustomControl from "../utils/MapCustomControl";
 import Distances from "../components/Distances";
+import Path from "../components/Path";
 // import Stations from "../components/Stations";
 
 /*
@@ -51,6 +52,7 @@ export default function MapPage() {
 
   // put distance measurements here?
   const [measurements, setMeasurements] =  useState([])
+  const [slice, setSlice] = useState([])
   // const addMeasurement=(measurement) =>{
   //   setMeasurements([...measurements, measurement])
   //   console.log("measurement set in addMeasurement on MapPage")
@@ -60,11 +62,11 @@ export default function MapPage() {
   // sets default river by ID
   const [riverID, setRiverID] = useState("615265d7f7d6c9405d5cf61a");
 
-  // resets markers
-  const resetMarkers = () => {
+  // resets markers (debatable use of callback)
+  const resetMarkers = useCallback(() => {
     console.log("reset markers")
-    setMarkers([]);
-  };
+    setMarkers([])
+  },[]);
 
   // calculates bounding box for map
   function calculateBounds(riverData) {
@@ -148,11 +150,10 @@ export default function MapPage() {
       </div>
     );
   }
-
   return (
     // sets max bounds of map, zoom level, zoom controls on/off, map bounds, map height
     <MapContainer
-      preferCanvas={true}
+      // preferCanvas={true}
       maxBounds={[
         [24.58, -125.68],
         [49.58, -66.48],
@@ -182,7 +183,8 @@ export default function MapPage() {
             <River data={data} setMarkers={setMarkers} />
             <Markers markers={markers}></Markers>
             {/* <DistanceLine data={data} addMeasurement={addMeasurement} markers={markers}></DistanceLine> */}
-            <Distances setMeasurements={setMeasurements} data={data} markers={markers}></Distances>
+            <Distances setMeasurements={setMeasurements} data={data} markers={markers} setSlice={setSlice}></Distances>
+            {slice.length===0? null: <Path slice={slice}></Path>}
           </FeatureGroup>
           {/* distance measurement legend */}
           <Legend
