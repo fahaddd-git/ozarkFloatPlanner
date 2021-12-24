@@ -18,6 +18,7 @@ import Dropdown from "../components/Dropdown";
 import MapCustomControl from "../utils/MapCustomControl";
 import Distances from "../components/Distances";
 import Path from "../components/Path";
+import NewLegend from "../components/NewLegend";
 // import Stations from "../components/Stations";
 
 /*
@@ -187,11 +188,16 @@ export default function MapPage() {
             {slice.length===0? null: <Path slice={slice}></Path>}
           </FeatureGroup>
           {/* distance measurement legend */}
-          <Legend
+
+          <MapCustomControl position={"bottomright"}>
+              <NewLegend measurements={measurements} resetMarkers={resetMarkers} featureGroupRef={featureGroupRef}></NewLegend>
+          </MapCustomControl>
+
+          {/* <Legend
             resetMarkers={resetMarkers}
             featureGroupRef={featureGroupRef}
             map={map}
-          />
+          /> */}
         </Overlay>
       </LayersControl>
     </MapContainer>
