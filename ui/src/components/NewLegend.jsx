@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { memo } from "react";
 import { Table, Button, Container, Row } from "react-bootstrap";
 import { round } from "@turf/helpers";
+import {Browser} from 'leaflet'
 
-export default function NewLegend({
+function NewLegend({
   measurements,
   setMarkers,
   featureGroupRef,
@@ -12,24 +13,27 @@ export default function NewLegend({
   console.log(measurements);
 
   return (
-    <div className="v-stack text-center">
-      <Table className="position-relative" size="sm" striped variant="success">
+    <Container id="newLegend" className="text-center mb-3" >
+        Distances
+      <Table className="position-relative mb-2" size="sm" striped variant="primary">
         <tbody>
-          <tr>
+          {/* <tr className="mt-1">
             <td>Distance</td>
-          </tr>
+          </tr> */}
           {/* avoid issue with text node by rendering <tr> and <td> */}
           {measurements===[]? null : measurements.map((measurement, index) => {
             return (
               <tr key={index + 1}>
-                <td key={index}>{round(measurement, 2)}</td>
+                <td className="text-muted" key={index}>{round(measurement, 2)}</td>
               </tr>
             );
           })}
         </tbody>
       </Table>
       <Button
-        className="mb-4"
+      id="resetButton"
+      size={Browser.mobile? "sm" : "md"}
+        className="mb-1"
         onClick={() => {
           let currentLayers = featureGroupRef.current.getLayers();
           // River component always first layer
@@ -40,14 +44,22 @@ export default function NewLegend({
             if (layer._leaflet_id !== riverLayerId) {
               featureGroupRef.current.removeLayer(layer);
             }
-            setMarkers([]);
-            setMeasurements([])
-            setSlice([])
+                        //   layer._leaflet_id !== riverLayerId ? featureGroupRef.current.removeLayer(layer) : null
+
+            // setMarkers([]);
+            // setMeasurements([])
+            // setSlice([])
           });
-        }}
+          setMarkers([]);
+          setMeasurements([])
+          setSlice([])
+        }
+    }
       >
         Reset
       </Button>
-    </div>
+    </Container>
   );
 }
+
+export default memo(NewLegend)

@@ -13,23 +13,23 @@ html, body, #root {
 .leaflet-control-layers-expanded {
   text-align: left;
 }
-
+/* 
 table {
   float: right;
   position: absolute;
   bottom: 0px;
-}
+} */
 
-.legend {
+/* .legend {
   text-align: center;
   padding: 6px;
   font: 12px Arial, Helvetica, sans-serif;
   background: rgba(255, 255, 255, 0.7);
   /*vertical height of legend*/
-  line-height: 14px;
+  /* line-height: 14px; */
   /*text color*/
-  color: rgba(0, 0, 0);
-}
+  /* color: rgba(0, 0, 0); */
+/* } 
 
 /* override for boostrap cards */
 .card{
@@ -48,4 +48,15 @@ table {
     border: 9px solid rgba(0,0,0,0.2) !important;
     background-clip: padding-box;
 
+} */
+
+/* #resetButton{
+} */
+#newLegend{
+  background: hsla(0,0%,100%,.7);
+
+}
+/* #spinner{
+  opacity: .5;
+  z-index: 1000;
 } */

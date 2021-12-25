@@ -1,11 +1,11 @@
-import React, { useMemo } from "react";
+import React, { memo, useMemo } from "react";
 import GeoJsonWithUpdates from "./GeojsonUpdates";
 
-export default function Path({ slice }) {
+function Path({ slice }) {
   console.log(slice.length);
   return(
-  useMemo(
-    () =>
+//   useMemo(
+//     () =>
       slice.map((arr, index) => {
         return (
           <GeoJsonWithUpdates
@@ -14,8 +14,11 @@ export default function Path({ slice }) {
             data={arr}
           />
         );
-      }),
-    [slice]
+      })
+    // [slice]
   )
-  )
-}
+    }
+// }
+
+
+export default memo(Path)

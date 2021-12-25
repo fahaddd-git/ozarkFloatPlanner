@@ -12,13 +12,15 @@ import "leaflet/dist/leaflet.css";
 import Layers from "../components/Layers";
 import River from "../components/River";
 import Markers from "../components/Markers";
-import DistanceLine from "../components/DistanceLine";
-import Legend from "../components/Legend";
+// import DistanceLine from "../components/DistanceLine";
+// import Legend from "../components/Legend";
 import Dropdown from "../components/Dropdown";
 import MapCustomControl from "../utils/MapCustomControl";
 import Distances from "../components/Distances";
 import Path from "../components/Path";
 import NewLegend from "../components/NewLegend";
+
+import { Spinner } from "react-bootstrap";
 // import Stations from "../components/Stations";
 
 /*
@@ -46,7 +48,7 @@ const { Overlay } = LayersControl;
 export default function MapPage() {
   const [map, setMap] = useState(null);
   const [markers, setMarkers] = useState([]);
-  const [data, setData] = useState();
+  const [data, setData] = useState(null);
   // const [stationData, setStationData] = useState();
   const [bounds, setBounds] = useState(null);
   const [isMobile, setMobile] = useState(true);
@@ -54,6 +56,7 @@ export default function MapPage() {
   // put distance measurements here?
   const [measurements, setMeasurements] =  useState([])
   const [slice, setSlice] = useState([])
+  const [isLoading, setLoading] = useState(true)
   // const addMeasurement=(measurement) =>{
   //   setMeasurements([...measurements, measurement])
   //   console.log("measurement set in addMeasurement on MapPage")
@@ -64,10 +67,24 @@ export default function MapPage() {
   const [riverID, setRiverID] = useState("615265d7f7d6c9405d5cf61a");
 
   // resets markers (debatable use of callback)
-  // const resetMarkers =  ()=>{
-  //   console.log("reset markers")
-  //   setMarkers([])
-  // };
+//  const resetMarkers=useCallback(
+//    () => {
+//      setMarkers([])
+//    },
+//    [markers],
+//  )
+//  const resetMeasurements=useCallback(
+//   () => {
+//     setMeasurements([])
+//   },
+//   [measurements],
+// )
+// const resetSlice=useCallback(
+//   () => {
+//     setSlice([])
+//   },
+//   [slice],
+// )
 
   // calculates bounding box for map
   function calculateBounds(riverData) {
@@ -108,6 +125,8 @@ export default function MapPage() {
     let abortController = new AbortController();
 
     try {
+      setLoading(true)
+      console.log("loading true")
       getRiverData(riverID).then((receivedData) => {
         const bounds = calculateBounds(receivedData);
         console.log("riverdata received bounds calculated")
@@ -115,7 +134,22 @@ export default function MapPage() {
         if (map) {
           map.flyToBounds(bounds);
           // clears legend pane (improve this)
-          document.getElementsByClassName("button-class")[0].click();
+          // document.getElementById("resetButton").click();
+          let currentLayers = featureGroupRef.current.getLayers();
+          // River component always first layer
+          let riverLayerId = currentLayers[0]._leaflet_id;
+          //clear layers except first
+
+          featureGroupRef.current.eachLayer(function (layer) {
+            if (layer._leaflet_id !== riverLayerId) {
+              featureGroupRef.current.removeLayer(layer);
+            }
+          });
+          setMarkers([]);
+          setMeasurements([])
+          setSlice([])
+
+
         } else {
           // set initial map bounds
           setBounds(bounds);
@@ -124,6 +158,7 @@ export default function MapPage() {
         // set riverdata when received from api
         setData(receivedData);
         console.log("data set")
+        // setLoading(false)
         // station data (to be implemented)
         // getStations().then((stationInfo) => {
         //   setStationData(stationInfo);
@@ -131,6 +166,10 @@ export default function MapPage() {
       });
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false)
+      console.log("loading false")
+
     }
     // cleanup useEffect async functions
     return () => {
@@ -139,7 +178,8 @@ export default function MapPage() {
   }, [riverID]);
 
   // prevents map from loading before data/bounds are found, displays loading spinner
-  if (!bounds) {
+  const LoadingSpinner = ()=>{
+    console.log("spinning")
     return (
       // center spinner in middle of screen
       <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
@@ -150,9 +190,16 @@ export default function MapPage() {
         <p className="pt-2">Loading   .  . .</p>
       </div>
     );
+
+  }
+  if (bounds === null) {
+    return <LoadingSpinner/>
+    
   }
   return (
     // sets max bounds of map, zoom level, zoom controls on/off, map bounds, map height
+    <>
+    {(bounds === null || isLoading)? <Spinner animation="border" role="status"/> :  null}
     <MapContainer
       // preferCanvas={true}
       maxBounds={[
@@ -174,23 +221,23 @@ export default function MapPage() {
         {/* adds layers to map */}
         <Layers />
         {/* adds components to monitoring stations overlay group */}
-        <Overlay name="Monitoring Stations" checked={true}>
+        {/* <Overlay name="Monitoring Stations" checked={true}> */}
           {/* {stationData && <Stations station={stationData} />} */}
-        </Overlay>
+        {/* </Overlay> */}
         {/* adds components to navigation overlay group */}
         <Overlay name="Navigation Overlay" checked={true}>
           {/* creates feature group organization for components */}
           <FeatureGroup ref={featureGroupRef}>
-            <River data={data} setMarkers={setMarkers} />
-            <Markers markers={markers}></Markers>
+            {data !== null? <River data={data} setMarkers={setMarkers} /> : null}
+            {markers.length > 0? <Markers markers={markers}/> : null}
             {/* <DistanceLine data={data} addMeasurement={addMeasurement} markers={markers}></DistanceLine> */}
-            <Distances setMeasurements={setMeasurements} data={data} markers={markers} setSlice={setSlice}></Distances>
+            {markers.length > 1? <Distances setMeasurements={setMeasurements} data={data} markers={markers} setSlice={setSlice}></Distances> : null}
             {slice.length===0? null: <Path slice={slice}></Path>}
           </FeatureGroup>
           {/* distance measurement legend */}
 
           <MapCustomControl position={"bottomright"}>
-              <NewLegend setSlice={setSlice} setMeasurements={setMeasurements} measurements={measurements} setMarkers={setMarkers} featureGroupRef={featureGroupRef}></NewLegend>
+              {map !== null? <NewLegend setSlice={setSlice} setMeasurements={setMeasurements} setMarkers={setMarkers} measurements={measurements}  featureGroupRef={featureGroupRef}/> : null}
           </MapCustomControl>
 
           {/* <Legend
@@ -201,5 +248,6 @@ export default function MapPage() {
         </Overlay>
       </LayersControl>
     </MapContainer>
+    </>
   );
 }

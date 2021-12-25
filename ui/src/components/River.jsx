@@ -16,7 +16,7 @@ export default function River({ data, setMarkers }) {
   let delay = 150;
 
   // data not null, return the geojson component
-  if (data) {
+  // if (data) {
     return (
       <GeojsonUpdates
         pathOptions={{ color: "#00daf2", weight: 5, opacity: 0.99 }}
@@ -37,7 +37,4 @@ export default function River({ data, setMarkers }) {
         }}
       />
     );
-  } else {
-    return null;
-  }
-}
+  } 

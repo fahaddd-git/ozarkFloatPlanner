@@ -23,7 +23,7 @@ let DefaultIcon = icon({
  */
 
 export default function Markers({ markers }) {
-  if (markers.length > 0) {
+  // if (markers.length > 0) {
     return markers.map((position, id) => (
       // create markers with popups
       <Marker
@@ -44,6 +44,6 @@ export default function Markers({ markers }) {
         <Popup>{`${position.lat},${position.lng}`}</Popup>
       </Marker>
     ));
-  }
-  return null;
+  // }
+  // return null;
 }
