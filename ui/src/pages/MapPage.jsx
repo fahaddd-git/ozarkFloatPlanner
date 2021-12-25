@@ -21,6 +21,7 @@ import Path from "../components/Path";
 import NewLegend from "../components/NewLegend";
 
 import { Spinner } from "react-bootstrap";
+
 // import Stations from "../components/Stations";
 
 /*
@@ -158,7 +159,8 @@ export default function MapPage() {
         // set riverdata when received from api
         setData(receivedData);
         console.log("data set")
-        // setLoading(false)
+        setLoading(false)
+        console.log("loading false")
         // station data (to be implemented)
         // getStations().then((stationInfo) => {
         //   setStationData(stationInfo);
@@ -166,10 +168,6 @@ export default function MapPage() {
       });
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false)
-      console.log("loading false")
-
     }
     // cleanup useEffect async functions
     return () => {
@@ -182,24 +180,34 @@ export default function MapPage() {
     console.log("spinning")
     return (
       // center spinner in middle of screen
-      <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
-        <div className="spinner-border" role="status">
+      // <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center experimental">
+    <div className="overlay">
+       <div className="spinner">
+
+
+        <div className=" spinner-border" role="status">
           {/* added for accessibility */}
           <span className="visually-hidden">Loading...</span>
+          
         </div>
-        <p className="pt-2">Loading   .  . .</p>
-      </div>
+        
+        </div>
+
+      // </div>
+      
     );
 
   }
   if (bounds === null) {
-    return <LoadingSpinner/>
+    // return <Spinner animation="border" role="status"/>
+    return <LoadingSpinner></LoadingSpinner>
     
   }
   return (
     // sets max bounds of map, zoom level, zoom controls on/off, map bounds, map height
     <>
-    {(bounds === null || isLoading)? <Spinner animation="border" role="status"/> :  null}
+    {(bounds === null || isLoading)? <LoadingSpinner/> :  null}
+
     <MapContainer
       // preferCanvas={true}
       maxBounds={[

@@ -7,6 +7,7 @@ html, body, #root {
   height: 100%;
   overflow: none;
   position: absolute;
+  z-index: 500;
 }
 
 /* left aligns the map layer selection pane */
@@ -44,6 +45,12 @@ table {
   background-clip: padding-box;
 }
 
+/* bottom right legend div */
+.leaflet-bottom.leaflet-right{
+  z-index: 500;
+
+}
+
   /* .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
     border: 9px solid rgba(0,0,0,0.2) !important;
     background-clip: padding-box;
@@ -56,7 +63,30 @@ table {
   background: hsla(0,0%,100%,.7);
 
 }
-/* #spinner{
-  opacity: .5;
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background-color: rgba(0, 0, 0, 0.2); 
+  z-index:999
+}
+
+.spinner {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+
+  transform: translate(-50%, -50%);
   z-index: 1000;
-} */
+
+} 
+
+
+
