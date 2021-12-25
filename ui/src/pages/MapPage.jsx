@@ -20,8 +20,7 @@ import Distances from "../components/Distances";
 import Path from "../components/Path";
 import NewLegend from "../components/NewLegend";
 
-import { Spinner } from "react-bootstrap";
-
+import LoadingSpinner from "../components/LoadingSpinner";
 // import Stations from "../components/Stations";
 
 /*
@@ -176,28 +175,30 @@ export default function MapPage() {
   }, [riverID]);
 
   // prevents map from loading before data/bounds are found, displays loading spinner
-  const LoadingSpinner = ()=>{
-    console.log("spinning")
-    return (
-      // center spinner in middle of screen
-      // <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center experimental">
-    <div className="overlay">
-       <div className="spinner">
+  // const LoadingSpinner = ()=>{
+  //   console.log("spinning")
+  //   return (
+  //     // center spinner in middle of screen
+  //     // <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+  //   <div className="overlay">
+  //      <div className="spinner">
 
-
-        <div className=" spinner-border" role="status">
-          {/* added for accessibility */}
-          <span className="visually-hidden">Loading...</span>
+  //       <Spinner animation="border" variant="primary"/>
+  //       {/* <div className=" spinner-border" role="status"> */}
+  //         {/* added for accessibility */}
+  //         <span className="visually-hidden">Loading...</span>
           
-        </div>
+  //       </div>
         
-        </div>
+  //       </div>
 
-      // </div>
+  //     // </div>
       
-    );
+  //   );
 
-  }
+  // }
+
+
   if (bounds === null) {
     // return <Spinner animation="border" role="status"/>
     return <LoadingSpinner></LoadingSpinner>

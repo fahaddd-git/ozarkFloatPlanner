@@ -100,8 +100,8 @@ export default function AboutPage() {
 
               <Card.Body>
                 <Card.Text>
-                  This project was created with React, Express, NodeJS and
-                  MongoDB. Libraries used were Turf.js, React Leaflet, and
+                  This project is created with React, Express, NodeJS and
+                  MongoDB. Libraries used are Turf.js, React Leaflet, and
                   Bootstrap.
                 </Card.Text>
               </Card.Body>

@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Table, Button, Container, Row } from "react-bootstrap";
+import { Table, Button, Container, NavLink } from "react-bootstrap";
 import { round } from "@turf/helpers";
 import {Browser} from 'leaflet'
 
@@ -13,9 +13,9 @@ function NewLegend({
   console.log(measurements);
 
   return (
-    <Container id="newLegend" className="text-center mb-3" >
-        Distances
-      <Table className="position-relative mb-2" size="sm" striped variant="primary">
+    <Container id="newLegend" className="text-center mb-3 vstack mx-auto" >
+        <b>Distances</b>
+      <Table className="mb-2" size="sm" striped variant="primary">
         <tbody>
           {/* <tr className="mt-1">
             <td>Distance</td>
@@ -33,7 +33,7 @@ function NewLegend({
       <Button
       id="resetButton"
       size={Browser.mobile? "sm" : "md"}
-        className="mb-1"
+        className="mb-0"
         onClick={() => {
           let currentLayers = featureGroupRef.current.getLayers();
           // River component always first layer
@@ -55,9 +55,9 @@ function NewLegend({
           setSlice([])
         }
     }
-      >
-        Reset
-      </Button>
+      >Reset</Button>
+      <a id="aboutLink" className="mx-auto p-0" href="/about">About</a>
+      
     </Container>
   );
 }
