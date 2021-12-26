@@ -15,8 +15,8 @@ function NewLegend({
 
   return (
     <Container id="newLegend" className="text-center mb-3 vstack mx-auto" >
-        <h6 className="fw-bold mt-1">Distances</h6>
-      <Table className="mb-2" size="sm" striped variant="light">
+        <h6 className="fw-normal mt-2">Distance</h6>
+      <Table className="mb-2" size={Browser.mobile? "sm": "lg"} striped variant="light">
           
         <tbody>
           {/* <tr className="mt-1">
@@ -27,24 +27,28 @@ function NewLegend({
           measurements.map((measurement, index) => {
             return (
               <tr key={index + 1}>
-                <td className="fw-light" key={index}>{round(measurement, 2)}</td>
+                <td className="fw-light" key={index}>{ round(measurement, 2) }</td>
               </tr>
             );
           }
           )
           }
-          <tr>
-              <td className="fw-bold">{measurements===[]? null :
+ 
+
+
+        </tbody>
+        <tfoot>
+            <tr>
+            <td className="fw-normal">{measurements===[]? null :
           
            "Total: " + round(measurements.reduce((total, value)=>{
               return total+=value
           },0
           ), 2) + " mi"
           
-          }
-          </td>
+          } </td>
           </tr>
-        </tbody>
+          </tfoot>
       </Table>
       <Button
       id="resetButton"

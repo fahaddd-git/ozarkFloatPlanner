@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { MapContainer, LayersControl, FeatureGroup } from "react-leaflet";
 import bbox from "@turf/bbox";
-import { Browser } from "leaflet";
+import { Browser, canvas } from "leaflet";
 import { getRiverData } from "../utils/callAPI";
 // fullscreen leaflet imports
 import "leaflet-fullscreen/dist/Leaflet.fullscreen.js";
@@ -220,6 +220,7 @@ export default function MapPage() {
       fullscreenControl={isMobile}
       bounds={bounds}
       whenCreated={setMap}
+      renderer={canvas({ padding: .1, tolerance:8})}
     >
       {/* container for dropdown box, topleft for mobile */}
       <MapCustomControl position={isMobile? "bottomleft" : "topleft"}>
@@ -236,8 +237,8 @@ export default function MapPage() {
         {/* adds components to navigation overlay group */}
         <Overlay name="Navigation Overlay" checked={true}>
           {/* creates feature group organization for components */}
-          <FeatureGroup ref={featureGroupRef}>
-            {data !== null? <River data={data} setMarkers={setMarkers} /> : null}
+          <FeatureGroup ref={featureGroupRef} bubblingMouseEvents={false}>
+            {data !== null? <River data={data} setMarkers={setMarkers}/> : null}
             {markers.length > 0? <Markers markers={markers}/> : null}
             {/* <DistanceLine data={data} addMeasurement={addMeasurement} markers={markers}></DistanceLine> */}
             {markers.length > 1? <Distances setMeasurements={setMeasurements} data={data} markers={markers} setSlice={setSlice}></Distances> : null}

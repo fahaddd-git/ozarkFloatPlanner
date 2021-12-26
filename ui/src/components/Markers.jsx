@@ -1,5 +1,7 @@
 import React from "react";
 import { Marker, Popup } from "react-leaflet";
+import { round } from "@turf/helpers";
+import { DomEvent } from "leaflet";
 
 // set the default marker icon due to bug with Leaflet
 
@@ -23,6 +25,7 @@ let DefaultIcon = icon({
  */
 
 export default function Markers({ markers }) {
+  // let clickCount=0
   // if (markers.length > 0) {
     return markers.map((position, id) => (
       // create markers with popups
@@ -31,6 +34,17 @@ export default function Markers({ markers }) {
         key={id}
         position={position}
         eventHandlers={{
+          // click:(e)=>{
+          //   clickCount++;
+          //   if (clickCount > 1){
+          //     clickCount=0
+          //     return false
+          //   }
+          //   console.log(e)
+          //   e.target.openPopup()
+            
+          // },
+
           // open popup on mouseover
           mouseover: (e) => {
             e.target.openPopup();
@@ -41,7 +55,7 @@ export default function Markers({ markers }) {
           },
         }}
       >
-        <Popup>{`${position.lat},${position.lng}`}</Popup>
+        <Popup>{`${round(position.lat,3)}, ${round(position.lng,3)}`}</Popup>
       </Marker>
     ));
   // }

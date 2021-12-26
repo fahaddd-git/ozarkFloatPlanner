@@ -45,7 +45,7 @@ table {
 .leaflet-bottom.leaflet-right .leaflet-touch .leaflet-control-layers,
 .leaflet-touch .leaflet-bar {
   border: none !important;
-  background-clip: padding-box;
+  /* background-clip: padding-box; */
 }
 
 /* bottom right legend div */
@@ -62,7 +62,8 @@ table {
 /* #resetButton{
 } */
 #newLegend {
-  background: hsla(0, 0%, 100%, 0.7);
+  background: hsla(0, 0%, 100%, 0.8);
+  border: 2px solid rgba(0,0,0,0.2);
 }
 
 .overlay {
@@ -90,4 +91,5 @@ table {
 #aboutLink{
   color: #0d6efd;
   text-decoration: underline;
+  background-color: hsla(0, 0%, 100%, 0);
 }
