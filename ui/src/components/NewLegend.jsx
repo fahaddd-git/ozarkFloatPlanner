@@ -51,6 +51,7 @@ function NewLegend({
           </tfoot>
       </Table>
       <Button
+      variant="primary"
       id="resetButton"
       size={Browser.mobile? "sm" : "md"}
         className="mb-0"

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import GeojsonUpdates from "./GeojsonUpdates";
-import { canvas } from "leaflet";
+import GeojsonUpdates from "../utils/GeojsonUpdates";
 
 /**
  * Draws riverbed on the map

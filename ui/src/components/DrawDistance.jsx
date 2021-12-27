@@ -3,7 +3,7 @@ import { useMap } from "react-leaflet";
 import lineSlice from "@turf/line-slice";
 import length from "@turf/length";
 
-import GeoJsonWithUpdates from "./GeojsonUpdates";
+import GeoJsonWithUpdates from "../utils/GeojsonUpdates";
 import Measurements from "./Measurements";
 import DistanceTable from "./DistanceTable";
 

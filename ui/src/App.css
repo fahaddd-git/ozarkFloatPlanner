@@ -41,17 +41,21 @@ table {
   margin: 10px;
 }
 
-/* override for reset button border */
-.leaflet-bottom.leaflet-right .leaflet-touch .leaflet-control-layers,
-.leaflet-touch .leaflet-bar {
+/* override for bottom right pane border */
+.leaflet-bottom.leaflet-right .leaflet-control {
   border: none !important;
-  /* background-clip: padding-box; */
+  /* z-index: 500; */
 }
 
 /* bottom right legend div */
-.leaflet-bottom.leaflet-right {
+/* .leaflet-bottom.leaflet-right {
   z-index: 500;
-}
+} */
+
+/* .leaflet-left.leaflet-top .leaflet-control{
+  border: 2px solid rgba(0,0,0,0.2)!important;
+
+} */
 
 /* .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
     border: 9px solid rgba(0,0,0,0.2) !important;
@@ -63,7 +67,7 @@ table {
 } */
 #newLegend {
   background: hsla(0, 0%, 100%, 0.8);
-  border: 2px solid rgba(0,0,0,0.2);
+  border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
 .overlay {
@@ -87,8 +91,7 @@ table {
   z-index: 1000;
 }
 
-
-#aboutLink{
+#aboutLink {
   color: #0d6efd;
   text-decoration: underline;
   background-color: hsla(0, 0%, 100%, 0);

@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from "react";
-import GeoJsonWithUpdates from "./GeojsonUpdates";
+import GeoJsonWithUpdates from "../utils/GeojsonUpdates";
 
 function Path({ slice }) {
   console.log(slice.length);

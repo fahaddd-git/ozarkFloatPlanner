@@ -26,17 +26,12 @@ import LoadingSpinner from "../components/LoadingSpinner";
 /*
 What needs improvement:
  - Create popup or modal for saying how to use the tool
- - update dependencies. DONE (react-leaflet-control potentially needed still?)
  - implement some logging software (not sure how this works with heroku)
  - add JSdoc airbnb style
- - Legend: needs to be more React-ive, ditch the innerhtml, see how to put the Measurements.jsx inside the legend
  - MapPage is potentially too complicated atm
  - add some branding 
  - Create readme (use elements from old repo if needed)
  - error handling for ui and api
- - add a spinner for loading
- - potentially make the river select box use bootstrap
-
  - Potentially manipulate data in DB for better performance, no need for repetetive calculations
  - Implement Redis or some kind of caching
  - deploy to AWS
@@ -220,7 +215,7 @@ export default function MapPage() {
       fullscreenControl={isMobile}
       bounds={bounds}
       whenCreated={setMap}
-      renderer={canvas({ padding: .1, tolerance:8})}
+      renderer={canvas({ padding: .1, tolerance:6})}
     >
       {/* container for dropdown box, topleft for mobile */}
       <MapCustomControl position={isMobile? "bottomleft" : "topleft"}>
