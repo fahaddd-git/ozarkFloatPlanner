@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { GeoJSON } from "react-leaflet";
-import { canvas } from "leaflet";
 
 /**
  * Wrapper for GeoJson Leaflet component that supports updates to data

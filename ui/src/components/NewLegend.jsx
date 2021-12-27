@@ -1,7 +1,8 @@
-import React, { memo } from "react";
-import { Table, Button, Container, NavLink } from "react-bootstrap";
+import React, { memo, useState } from "react";
+import { Table, Button, Container, NavLink, Modal } from "react-bootstrap";
 import { round } from "@turf/helpers";
 import {Browser} from 'leaflet'
+import InstructionsModal from "./InstructionsModal";
 
 function NewLegend({
   measurements,
@@ -11,11 +12,14 @@ function NewLegend({
   setSlice
 }) {
   console.log(measurements);
+  const [showModal, setShowModal] = useState(true)
+  console.log(showModal)
+
 
 
   return (
-    <Container id="newLegend" className="text-center mb-3 vstack mx-auto" >
-        <h6 className="fw-normal mt-2">Distance</h6>
+    <Container id="legend" className="text-center mb-3 vstack mx-auto" >
+        <h6 className="mt-2">Distance</h6>
       <Table className="mb-2" size={Browser.mobile? "sm": "lg"} striped variant="light">
           
         <tbody>
@@ -72,8 +76,33 @@ function NewLegend({
         }
     }
       >Reset</Button>
-      <a id="aboutLink" className="mx-auto p-0" href="/about">About</a>
-      
+        {/* <a id="aboutLink" className="mx-auto p-0 text-center" href="/about">About</a>
+         <a id="helpLink" className="mx-auto p-0 text-center" onClick={console.log("hi")}>Help</a> */}
+
+        <NavLink id="aboutLink" className= "mx-auto py-0 my-0" href="/about">About</NavLink>
+        <NavLink id="helpLink" className= "mx-auto py-0 my-0 link-secondary" onClick={()=>setShowModal(true)}>Help</NavLink>
+        {/* <Modal show={showModal}>
+        <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                  Modal heading
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <h4>Centered Modal</h4>
+                <p>
+                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                  dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+                  consectetur ac, vestibulum at eros.
+                </p>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={()=>setShowModal(false)}>Close</Button>
+              </Modal.Footer>
+            </Modal> */}
+        <InstructionsModal showModal={showModal} setShowModal={setShowModal} />
+
+
+
     </Container>
   );
 }

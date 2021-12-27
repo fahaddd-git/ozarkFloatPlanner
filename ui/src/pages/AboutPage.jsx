@@ -16,10 +16,10 @@ export default function AboutPage() {
   const emailAddress = "ozarkfloatplanner@gmail.com";
   const history = useHistory();
 
-  const [show, setShow] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShowModal(false);
+  // const handleShow = () => setShow(true);
 
   return (
     <>
@@ -120,14 +120,14 @@ export default function AboutPage() {
                 <Button
                   className="mt-auto"
                   variant="success"
-                  onClick={handleShow}
+                  onClick={()=>setShowModal(true)}
                 >
                   {" "}
                   Read Agreement
                 </Button>
 
                 {/* Modal popup for legal agreement */}
-                <Modal className="text-center" show={show} onHide={handleClose}>
+                <Modal className="text-center" show={showModal} onHide={handleClose}>
                   <Modal.Header closeButton>
                     <Modal.Title>Legal Agreement</Modal.Title>
                   </Modal.Header>

@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from "react";
+import React, { memo } from "react";
 import GeoJsonWithUpdates from "../utils/GeojsonUpdates";
 
 function Path({ slice }) {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import lineSlice from "@turf/line-slice";
 import length from "@turf/length";
 
