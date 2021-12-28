@@ -1,32 +1,30 @@
 import React, {useEffect} from 'react'
-import { Modal, Button } from 'react-bootstrap';
+import { Offcanvas, Button } from 'react-bootstrap';
 export default function InstructionsModal ({showModal, setShowModal}) {
         return (
-            <Modal
+            <Offcanvas
               show={showModal}
               onHide={()=>setShowModal(false)}
-              size="lg"
-              aria-labelledby="contained-modal-title-vcenter"
-
-              centered
+        
+            //   size="lg"
+              
+            //   className="offcanvas-bottom"
             >
-              <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                  Modal heading
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <h4>Centered Modal</h4>
+              <Offcanvas.Header className="text-center" closeButton>
+                <Offcanvas.Title className="w-100 fs-4">
+                  Welcome!
+                </Offcanvas.Title>
+              </Offcanvas.Header>
+              <Offcanvas.Body>
+                <h4>Plan your next float trip!</h4>
                 <p>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                  dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                  consectetur ac, vestibulum at eros.
+                  ...is a tool to help you plan your next Ozark adventure. 
                 </p>
-              </Modal.Body>
-              <Modal.Footer>
+              </Offcanvas.Body>
+              {/* <Offcanvas.Footer>
                 <Button onClick={()=>setShowModal(false)}>Close</Button>
-              </Modal.Footer>
-            </Modal>
+              </Offcanvas.Footer> */}
+            </Offcanvas>
           );
 
   

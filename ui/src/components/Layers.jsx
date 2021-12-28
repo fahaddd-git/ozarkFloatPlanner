@@ -45,7 +45,7 @@ export default function Layers() {
         />
       </BaseLayer>
 
-      <Overlay name="Hydro">
+      <Overlay name="Hydro Overlay">
         <TileLayer
           attribution="USGS"
           url="https://basemap.nationalmap.gov/arcgis/rest/services/USGSHydroCached/MapServer/tile/{z}/{y}/{x}"

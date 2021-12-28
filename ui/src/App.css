@@ -116,3 +116,22 @@ table {
   /* margin-bottom: -.6rem; */
 
 }
+
+
+/* dropdown menu styling override */
+.form-select-lg{
+  font-size: 1.1rem!important;
+}
+.form-select {
+  background-color: hsla(0, 0%, 100%, 0.8)!important;
+  padding-right: 2rem!important;
+}
+
+.offcanvas{
+  background-color: hsla(0, 0%, 100%, 0.7)!important;
+}
+
+.leaflet-control-layers-expanded{
+  background-color: hsla(0, 0%, 100%, 0.9)!important;
+  padding: 6px 10px 6px 10px!important;
+}

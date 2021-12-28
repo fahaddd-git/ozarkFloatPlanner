@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import { MapContainer, LayersControl, FeatureGroup } from "react-leaflet";
+import React, { useState, useEffect, useRef } from "react";
+import { MapContainer, LayersControl, FeatureGroup, useMapEvents } from "react-leaflet";
 import bbox from "@turf/bbox";
 import { Browser, canvas } from "leaflet";
 import { getRiverData } from "../utils/callAPI";
@@ -26,6 +26,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 /*
 What needs improvement:
  - Create popup or modal for saying how to use the tool
+ - change font-weight of "Distance" text, decide modal or offcanvas for instructions, change text size/padding/opacity of river select
  - implement some logging software (not sure how this works with heroku)
  - add JSdoc airbnb style
  - MapPage is potentially too complicated atm
@@ -39,6 +40,14 @@ What needs improvement:
 */
 
 const { Overlay } = LayersControl;
+
+function calculateBounds(riverData) {
+  const bboxArray = bbox(riverData);
+  const corner1 = [bboxArray[1], bboxArray[0]];
+  const corner2 = [bboxArray[3], bboxArray[2]];
+  const bounds = [corner2, corner1];
+  return bounds;
+}
 
 export default function MapPage() {
   const [map, setMap] = useState(null);
@@ -82,13 +91,7 @@ export default function MapPage() {
 // )
 
   // calculates bounding box for map
-  function calculateBounds(riverData) {
-    const bboxArray = bbox(riverData);
-    const corner1 = [bboxArray[1], bboxArray[0]];
-    const corner2 = [bboxArray[3], bboxArray[2]];
-    const bounds = [corner2, corner1];
-    return bounds;
-  }
+
 
   // ref to <FeatureGroup>
   const featureGroupRef = useRef();
@@ -169,33 +172,8 @@ export default function MapPage() {
     };
   }, [riverID]);
 
-  // prevents map from loading before data/bounds are found, displays loading spinner
-  // const LoadingSpinner = ()=>{
-  //   console.log("spinning")
-  //   return (
-  //     // center spinner in middle of screen
-  //     // <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
-  //   <div className="overlay">
-  //      <div className="spinner">
-
-  //       <Spinner animation="border" variant="primary"/>
-  //       {/* <div className=" spinner-border" role="status"> */}
-  //         {/* added for accessibility */}
-  //         <span className="visually-hidden">Loading...</span>
-          
-  //       </div>
-        
-  //       </div>
-
-  //     // </div>
-      
-  //   );
-
-  // }
-
-
+  // initial loading spinner before data and map added to view
   if (bounds === null) {
-    // return <Spinner animation="border" role="status"/>
     return <LoadingSpinner></LoadingSpinner>
     
   }
@@ -215,8 +193,9 @@ export default function MapPage() {
       fullscreenControl={isMobile}
       bounds={bounds}
       whenCreated={setMap}
-      renderer={canvas({ padding: .1, tolerance:6})}
+      renderer={canvas({ padding: .1, tolerance:7})}
     >
+      {/* <MyComponent></MyComponent> */}
       {/* container for dropdown box, topleft for mobile */}
       <MapCustomControl position={isMobile? "bottomleft" : "topleft"}>
         <Dropdown riverID={riverID} setRiverID={setRiverID} />
