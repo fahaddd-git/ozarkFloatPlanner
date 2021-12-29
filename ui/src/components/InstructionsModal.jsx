@@ -16,18 +16,18 @@ export default function InstructionsModal({ showModal, setShowModal }) {
   return (
     <Offcanvas show={showModal} onHide={() => setShowModal(false)}>
       <Offcanvas.Header className="text-center pb-1" closeButton>
-        <Offcanvas.Title className="w-100 fs-5">Welcome!</Offcanvas.Title>
+        <Offcanvas.Title className="w-100 fs-3">Ozark Float Planner</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body className="d-flex flex-column h-100">
         <Container id="containerID">
           <Row>
             <Col>
-              <h3>Ozark Float Planner</h3>
-              <p>...is a tool to help you plan your next Ozark adventure.</p>
+              <h3 className="fs-5">Plan your next adventure . . .</h3>
+              <p>through the beautiful Missouri Ozarks.</p>
             </Col>
           </Row>
           <Row>
-            <Col className="vstack gap-3 text-center">
+            <Col className="vstack gap-2 text-center">
               <Figure>
                 <Figure.Image
                   className="mx-auto"
@@ -63,10 +63,12 @@ export default function InstructionsModal({ showModal, setShowModal }) {
           </Row>
         </Container>
 
-      <Button className="mx-auto w-20" onClick={()=>setShowModal(false)}>Close</Button>
+      <Button id="somebutton" className="mx-auto" onClick={()=>setShowModal(false)}>Close</Button>
         <NavLink className="text-center" href="/about">
           About
         </NavLink>
+        <Figure.Caption className="text-muted text-center">&copy; 2021 by Fahad Awan</Figure.Caption>
+
       </Offcanvas.Body>
     </Offcanvas>
   );
