@@ -6,6 +6,7 @@ const riverBedSchema = mongoose.Schema({
     features: { type: Array, required: false },
     name: { type: String, required: false}}, 
     //specify which collection to look under
+    // rename the collection to be less confusing
     { collection : 'riverdata' }
 );
 

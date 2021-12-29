@@ -1,3 +1,4 @@
+// update these imports
 import * as dotenv from "dotenv";
 import path from "path";
 import express from "express";
@@ -19,13 +20,14 @@ let corsOptions = {
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
-//app.use(express.static('public'));
+// check if this is necessary
+// app.use(
+//   express.urlencoded({
+//     extended: true,
+//   })
+// );
 
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
+// potentially combine these
 
 app.use(express.json());
 
@@ -45,17 +47,17 @@ app.post("/add_river_data", (req, res) => {});
 app.get("/stations/:name", cors(corsOptions), (req, res) => {
   // get the river name
   const stationName = req.params.name;
-  river.findStationByName(stationName).then((stationdata) => {
-    res.status(200).json(stationdata);
-    console.log(`${stationdata.name} requested`);
-  })
-  .catch((error) => {
-    console.error(error);
-    res.status(500).json({ Error: "Station Request failed" });
-  });
-
-  });
-
+  river
+    .findStationByName(stationName)
+    .then((stationdata) => {
+      res.status(200).json(stationdata);
+      console.log(`${stationdata.name} requested`);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ Error: "Station Request failed" });
+    });
+});
 
 // // retrieve all riverbeddata
 // app.get("/", (req, res) =>{

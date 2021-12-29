@@ -1,75 +1,110 @@
-.App {
-  display: flex;
-  text-align: center;
-  /* flex: 1 0 auto; */
-
+html,
+body,
+#root {
+  height: 100%;
 }
 
-
-
-
-
-/* .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-} */
-
-
-
-
-/* .react-select__menu {
-  position:absolute;
-  } */
-
-.leaflet-container{
+.leaflet-container {
   width: 100vw;
   height: 100%;
   overflow: none;
-  position: absolute
-
+  position: absolute;
+  z-index: 500;
 }
 
-/* left aligns the map layer selection pane */
-.leaflet-control-layers-expanded{
+/* map layer selection pane */
+.leaflet-control-layers-expanded {
   text-align: left;
+  background-color: hsla(0, 0%, 100%, 0.9) !important;
+  padding: 6px 10px 6px 10px !important;
 }
 
-table{
-  float:right;
-  position:absolute;
-  bottom:0px;
+/* boostrap cards */
+.card {
+  width: 18rem;
+  padding: 10px;
+  margin: 10px;
 }
 
+/* bottom right control pane */
+.leaflet-bottom.leaflet-right .leaflet-control {
+  border: none !important;
+  /* z-index: 500; */
+}
 
-
-
-
-/* .center-screen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 100vh;
+/* bottom right legend div */
+/* .leaflet-bottom.leaflet-right {
+  z-index: 500;
 } */
 
- 
-.legend {
-  padding: 6px; 
-  font: 12px Arial, Helvetica, sans-serif;
-  background: rgba(255, 255, 255, 0.70);
-  /*box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);*/
-  /*border-radius: 5px;*/
+/* .leaflet-left.leaflet-top .leaflet-control{
+  border: 2px solid rgba(0,0,0,0.2)!important;
 
-  /*vertical height of legend*/
-  line-height: 14px;
+} */
 
-  /*text color*/
-  color: rgba(0, 0, 0);
+/* .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+    border: 9px solid rgba(0,0,0,0.2) !important;
+    background-clip: padding-box;
+
+} */
+
+/* Legend element */
+#legend {
+  background: hsla(0, 0%, 100%, 0.8);
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+/* loading spinner muted background overlay */
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+/* loading spinner */
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+#aboutLink {
+  padding: 0.5rem 1rem;
+  color: #0d6efd;
+  background-color: hsla(0, 0%, 100%, 0);
+  display: table;
+  border-bottom: none;
+  margin-bottom: -0.5rem !important;
+}
+
+#helpLink {
+  padding: 0.5rem 1rem;
+  color: #0d6efd;
+  background-color: hsla(0, 0%, 100%, 0);
+  display: table;
+  border-bottom: none;
+}
+
+/* dropdown menu styling override */
+.form-select-lg {
+  font-size: 1.1rem !important;
+}
+.form-select {
+  background-color: hsla(0, 0%, 100%, 0.8) !important;
+  padding-right: 2rem !important;
+}
+
+.offcanvas {
+  background-color: hsla(0, 0%, 100%, 0.8) !important;
+}
+
+#containerID{
+  flex: 1 0 auto!important;
 }
 
