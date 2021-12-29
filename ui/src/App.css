@@ -108,7 +108,7 @@ body,
   flex: 1 0 auto!important;
 }
 
-#somebutton{
+#closeButton{
   width: 20%;
   min-height: 40px;
 }

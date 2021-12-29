@@ -63,7 +63,7 @@ export default function InstructionsModal({ showModal, setShowModal }) {
           </Row>
         </Container>
 
-      <Button id="somebutton" className="mx-auto" onClick={()=>setShowModal(false)}>Close</Button>
+      <Button id="closeButton" className="mx-auto" onClick={()=>setShowModal(false)}>Close</Button>
         <NavLink className="text-center" href="/about">
           About
         </NavLink>
