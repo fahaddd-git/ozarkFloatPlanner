@@ -11,33 +11,38 @@ import { Browser } from "leaflet";
  * @returns  <GeoJsonWithUpdates/>
  */
 
+function DisableClickOnZoom() {
+  let body= document.querySelector("body")
+  console.log(body)
+  useMapEvents({
+    zoomstart: () => {
+      body.style.pointerEvents = "none";
+    },
+    zoomend: () => {
+      body.style.pointerEvents = "auto";
+    },
+  });
+  return null;
+}
+
 export default function River({ data, setMarkers }) {
   // click delay handler to fix bug with double click on iOS
   let [lastClick, setLastClick] = useState(0);
   let delay = 200;
 
   // disables click on River line when zooming in (mobile)
-  function DisableClickOnZoom() {
-    useMapEvents({
-      zoomstart: (e) => {
-        document.getElementsByTagName("body")[0].style.pointerEvents="none"
-      },
-      zoomend: (e) =>{
-        document.getElementsByTagName("body")[0].style.pointerEvents="auto"
-      }
-    })
-    return null}
+  
 
   // data not null, return the geojson component
-    return (
-      <>
-      {Browser.mobile? <DisableClickOnZoom/> : null}
+  return (
+    <>
+      {Browser.mobile ? <DisableClickOnZoom /> : null}
       <GeojsonUpdates
-        pathOptions={{ color: "#00daf2", weight: 5, opacity: .99 }}
+        pathOptions={{ color: "#00daf2", weight: 5, opacity: 0.99 }}
         data={data}
         // bubblingMouseEvents={false}
         eventHandlers={{
-          click: (e) => {       
+          click: (e) => {
             // prevents double click of polyline
             if (lastClick >= Date.now() - delay) {
               return;
@@ -45,12 +50,10 @@ export default function River({ data, setMarkers }) {
               setLastClick(Date.now());
             }
             // update state of markers
-            console.log("markers state set in River")
-            setMarkers(oldMarkers=> [...oldMarkers, e.latlng])
-            
+            setMarkers((oldMarkers) => [...oldMarkers, e.latlng]);
           },
         }}
       />
-      </>
-    );
-  } 
+    </>
+  );
+}

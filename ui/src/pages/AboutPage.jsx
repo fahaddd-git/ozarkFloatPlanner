@@ -178,9 +178,9 @@ export default function AboutPage() {
       </Container>
 
       {/* back button */}
-      <Container className="d-flex justify-content-center pb-5">
+      <Container className="text-center pb-2">
         <Button
-          variant="outline-success"
+          variant="outline-success mb-4"
           onClick={(e) => {
             e.preventDefault();
             history.push("/");
@@ -188,6 +188,7 @@ export default function AboutPage() {
         >
           Back
         </Button>
+        <p className="text-muted">&copy; 2021 by Fahad Awan</p>
       </Container>
     </>
   );

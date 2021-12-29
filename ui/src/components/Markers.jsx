@@ -1,7 +1,5 @@
-import React from "react";
 import { Marker, Popup } from "react-leaflet";
 import { round } from "@turf/helpers";
-import { DomEvent } from "leaflet";
 
 // set the default marker icon due to bug with Leaflet
 

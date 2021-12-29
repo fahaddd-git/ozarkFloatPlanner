@@ -12,36 +12,21 @@ body,
   z-index: 500;
 }
 
-/* left aligns the map layer selection pane */
+/* map layer selection pane */
 .leaflet-control-layers-expanded {
   text-align: left;
+  background-color: hsla(0, 0%, 100%, 0.9) !important;
+  padding: 6px 10px 6px 10px !important;
 }
-/* 
-table {
-  float: right;
-  position: absolute;
-  bottom: 0px;
-} */
 
-/* .legend {
-  text-align: center;
-  padding: 6px;
-  font: 12px Arial, Helvetica, sans-serif;
-  background: rgba(255, 255, 255, 0.7);
-  /*vertical height of legend*/
-/* line-height: 14px; */
-/*text color*/
-/* color: rgba(0, 0, 0); */
-/* } 
-
-/* override for boostrap cards */
+/* boostrap cards */
 .card {
   width: 18rem;
   padding: 10px;
   margin: 10px;
 }
 
-/* override for bottom right pane border */
+/* bottom right control pane */
 .leaflet-bottom.leaflet-right .leaflet-control {
   border: none !important;
   /* z-index: 500; */
@@ -63,75 +48,63 @@ table {
 
 } */
 
-/* #resetButton{
-} */
+/* Legend element */
 #legend {
   background: hsla(0, 0%, 100%, 0.8);
   border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
+/* loading spinner muted background overlay */
 .overlay {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-
   background-color: rgba(0, 0, 0, 0.2);
   z-index: 999;
 }
 
+/* loading spinner */
 .spinner {
   position: absolute;
-
   top: 50%;
   left: 50%;
-
   transform: translate(-50%, -50%);
   z-index: 1000;
 }
 
 #aboutLink {
-  /* color: #0d6efd; */
-  /* text-decoration: underline; */
-  /* display: block; */
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   color: #0d6efd;
-  text-decoration: none;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
   background-color: hsla(0, 0%, 100%, 0);
-  display:table;
+  display: table;
   border-bottom: none;
-  margin-bottom: -.5rem!important;
+  margin-bottom: -0.5rem !important;
 }
 
-#helpLink{
-  padding: .5rem 1rem;
+#helpLink {
+  padding: 0.5rem 1rem;
   color: #0d6efd;
-  text-decoration: none;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
   background-color: hsla(0, 0%, 100%, 0);
-  display:table;
+  display: table;
   border-bottom: none;
-  /* margin-bottom: -.6rem; */
-
 }
-
 
 /* dropdown menu styling override */
-.form-select-lg{
-  font-size: 1.1rem!important;
+.form-select-lg {
+  font-size: 1.1rem !important;
 }
 .form-select {
-  background-color: hsla(0, 0%, 100%, 0.8)!important;
-  padding-right: 2rem!important;
+  background-color: hsla(0, 0%, 100%, 0.8) !important;
+  padding-right: 2rem !important;
 }
 
-.offcanvas{
-  background-color: hsla(0, 0%, 100%, 0.7)!important;
+.offcanvas {
+  background-color: hsla(0, 0%, 100%, 0.8) !important;
 }
 
-.leaflet-control-layers-expanded{
-  background-color: hsla(0, 0%, 100%, 0.9)!important;
-  padding: 6px 10px 6px 10px!important;
+#containerID{
+  flex: 1 0 auto!important;
 }
+

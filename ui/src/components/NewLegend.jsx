@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import { memo, useState } from "react";
 import { Table, Button, Container, NavLink, Modal } from "react-bootstrap";
 import { round } from "@turf/helpers";
 import { Browser } from "leaflet";
@@ -93,7 +93,7 @@ function NewLegend({
         Help
       </NavLink>
       {/* Initial instructions/directions for how to use this tool */}
-      {/* <InstructionsModal showModal={showModal} setShowModal={setShowModal} /> */}
+      <InstructionsModal showModal={showModal} setShowModal={setShowModal} />
     </Container>
   );
 }

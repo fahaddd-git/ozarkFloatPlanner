@@ -41,13 +41,7 @@ What needs improvement:
 
 const { Overlay } = LayersControl;
 
-function calculateBounds(riverData) {
-  const bboxArray = bbox(riverData);
-  const corner1 = [bboxArray[1], bboxArray[0]];
-  const corner2 = [bboxArray[3], bboxArray[2]];
-  const bounds = [corner2, corner1];
-  return bounds;
-}
+
 
 export default function MapPage() {
   const [map, setMap] = useState(null);
@@ -91,6 +85,13 @@ export default function MapPage() {
 // )
 
   // calculates bounding box for map
+  function calculateBounds(riverData) {
+    const bboxArray = bbox(riverData);
+    const corner1 = [bboxArray[1], bboxArray[0]];
+    const corner2 = [bboxArray[3], bboxArray[2]];
+    const bounds = [corner2, corner1];
+    return bounds;
+  }
 
 
   // ref to <FeatureGroup>

@@ -1,4 +1,3 @@
-import React from "react";
 import { TileLayer, LayersControl } from "react-leaflet";
 
 /**
@@ -29,7 +28,7 @@ export default function Layers() {
 
       <BaseLayer name="Satellite">
         <TileLayer
-          attribution="USGS"
+          attribution='<a href="https://usgs.gov/">USGS</a>'
           url="https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}"
           maxNativeZoom={16}
           maxZoom={18}
@@ -38,7 +37,7 @@ export default function Layers() {
 
       <BaseLayer name="Satellite + Topographical">
         <TileLayer
-          attribution="USGS"
+          attribution='<a href="https://usgs.gov/">USGS</a>'
           url="https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}"
           maxNativeZoom={16}
           maxZoom={18}
@@ -47,7 +46,7 @@ export default function Layers() {
 
       <Overlay name="Hydro Overlay">
         <TileLayer
-          attribution="USGS"
+          attribution='<a href="https://usgs.gov/">USGS</a>'
           url="https://basemap.nationalmap.gov/arcgis/rest/services/USGSHydroCached/MapServer/tile/{z}/{y}/{x}"
           maxNativeZoom={16}
           maxZoom={18}
