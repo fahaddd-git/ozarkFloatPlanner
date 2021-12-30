@@ -33,7 +33,6 @@ export default function Distances({
         travelDistance,
       ]);
       setSlice((oldSlice) => [...oldSlice, slice]);
-      console.log("rerender");
     } else {
       return null;
     }

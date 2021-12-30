@@ -104,11 +104,12 @@ body,
   background-color: hsla(0, 0%, 100%, 0.78) !important;
 }
 
-#containerID{
+#offcanvasContainer{
   flex: 1 0 auto!important;
 }
 
-#closeButton{
+/* #closeButton{
   width: 20%;
   min-height: 40px;
-}
+  min-width:70px
+} */

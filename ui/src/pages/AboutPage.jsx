@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 
 import { Container, Button, Card, Col, Row, Modal } from "react-bootstrap";
 import smallmouthPic from "../images/smallmouth.jpg";
@@ -14,7 +13,6 @@ import "../App.css";
 
 export default function AboutPage() {
   const emailAddress = "ozarkfloatplanner@gmail.com";
-  const history = useHistory();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -35,10 +33,10 @@ export default function AboutPage() {
 
               <Card.Body className="d-flex flex-column">
                 <Card.Text>
-                  Part of a safe float trip is to have an idea of distances to
+                  Part of a safe river adventure is having an plan of distances to
                   be covered each day on the river. The purpose of this tool is
-                  to facilitate planning awesome Ozark adventures by accurately
-                  measuring river miles. Get out there!
+                  to facilitate planning your next awesome Ozark adventure by accurately
+                  measuring river miles. Get out there.
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -180,11 +178,9 @@ export default function AboutPage() {
       {/* back button */}
       <Container className="text-center pb-2">
         <Button
+        href="/"
           variant="outline-success mb-4"
-          onClick={(e) => {
-            e.preventDefault();
-            history.push("/");
-          }}
+          
         >
           Back
         </Button>

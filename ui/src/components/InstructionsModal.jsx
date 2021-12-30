@@ -12,18 +12,17 @@ import instructionsRivers from "../images/instructionsRivers.gif";
 import instructionsViews from "../images/instructionsViews.gif";
 export default function InstructionsModal({ showModal, setShowModal }) {
   const imageWidth = "60%";
-
   return (
     <Offcanvas show={showModal} onHide={() => setShowModal(false)}>
-      <Offcanvas.Header className="text-center pb-1" closeButton>
+      <Offcanvas.Header className="text-center pb-0" closeButton>
         <Offcanvas.Title className="w-100 fs-3">Ozark Float Planner</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body className="d-flex flex-column h-100">
-        <Container id="containerID">
+        <Container id="offcanvasContainer">
           <Row>
             <Col>
               <h3 className="fs-5">Plan your next adventure . . .</h3>
-              <p>through the beautiful Missouri Ozarks.</p>
+              <p>through the beautiful Missouri Ozarks. Click on the map or close this window to get started!</p>
             </Col>
           </Row>
           <Row>
@@ -57,13 +56,13 @@ export default function InstructionsModal({ showModal, setShowModal }) {
                   src={instructionsViews}
                   width={imageWidth}
                 ></Figure.Image>
-                <Figure.Caption>Change map views and overlays</Figure.Caption>
+                <Figure.Caption>Change the map view and overlays</Figure.Caption>
               </Figure>
             </Col>
           </Row>
         </Container>
 
-      <Button id="closeButton" className="mx-auto" onClick={()=>setShowModal(false)}>Close</Button>
+      <Button className="mx-auto" onClick={()=>setShowModal(false)}>Close</Button>
         <NavLink className="text-center" href="/about">
           About
         </NavLink>

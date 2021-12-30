@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { MapContainer, LayersControl, FeatureGroup, useMapEvents } from "react-leaflet";
+import { MapContainer, LayersControl, FeatureGroup } from "react-leaflet";
 import bbox from "@turf/bbox";
 import { Browser, canvas } from "leaflet";
 import { getRiverData } from "../utils/callAPI";
 // fullscreen leaflet imports
-import "leaflet-fullscreen/dist/Leaflet.fullscreen.js";
-import "leaflet-fullscreen/dist/leaflet.fullscreen.css";
+// import "leaflet-fullscreen/dist/Leaflet.fullscreen.js";
+// import "leaflet-fullscreen/dist/leaflet.fullscreen.css";
 // core leaflet imports
 import "leaflet/dist/leaflet.css";
 // component imports
@@ -19,7 +19,6 @@ import MapCustomControl from "../utils/MapCustomControl";
 import Distances from "../components/Distances";
 import Path from "../components/Path";
 import NewLegend from "../components/NewLegend";
-
 import LoadingSpinner from "../components/LoadingSpinner";
 // import Stations from "../components/Stations";
 
@@ -51,38 +50,14 @@ export default function MapPage() {
   const [bounds, setBounds] = useState(null);
   const [isMobile, setMobile] = useState(true);
 
-  // put distance measurements here?
   const [measurements, setMeasurements] =  useState([])
   const [slice, setSlice] = useState([])
   const [isLoading, setLoading] = useState(true)
-  // const addMeasurement=(measurement) =>{
-  //   setMeasurements([...measurements, measurement])
-  //   console.log("measurement set in addMeasurement on MapPage")
-  //   console.log(measurements)
-  // }
+
 
   // sets default river by ID
   const [riverID, setRiverID] = useState("615265d7f7d6c9405d5cf61a");
 
-  // resets markers (debatable use of callback)
-//  const resetMarkers=useCallback(
-//    () => {
-//      setMarkers([])
-//    },
-//    [markers],
-//  )
-//  const resetMeasurements=useCallback(
-//   () => {
-//     setMeasurements([])
-//   },
-//   [measurements],
-// )
-// const resetSlice=useCallback(
-//   () => {
-//     setSlice([])
-//   },
-//   [slice],
-// )
 
   // calculates bounding box for map
   function calculateBounds(riverData) {
@@ -152,13 +127,10 @@ export default function MapPage() {
         } else {
           // set initial map bounds
           setBounds(bounds);
-          console.log("initial bounds set")
         }
         // set riverdata when received from api
         setData(receivedData);
-        console.log("data set")
         setLoading(false)
-        console.log("loading false")
         // station data (to be implemented)
         // getStations().then((stationInfo) => {
         //   setStationData(stationInfo);
@@ -191,7 +163,7 @@ export default function MapPage() {
       ]}
       zoom={14}
       zoomControl={isMobile}
-      fullscreenControl={isMobile}
+      // fullscreenControl={isMobile}
       bounds={bounds}
       whenCreated={setMap}
       renderer={canvas({ padding: .1, tolerance:7})}
@@ -224,12 +196,6 @@ export default function MapPage() {
           <MapCustomControl position={"bottomright"}>
               {map !== null? <NewLegend setSlice={setSlice} setMeasurements={setMeasurements} setMarkers={setMarkers} measurements={measurements}  featureGroupRef={featureGroupRef}/> : null}
           </MapCustomControl>
-
-          {/* <Legend
-            resetMarkers={resetMarkers}
-            featureGroupRef={featureGroupRef}
-            map={map}
-          /> */}
         </Overlay>
       </LayersControl>
     </MapContainer>

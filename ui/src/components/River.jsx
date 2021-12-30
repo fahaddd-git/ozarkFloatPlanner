@@ -13,7 +13,6 @@ import { Browser } from "leaflet";
 
 function DisableClickOnZoom() {
   let body= document.querySelector("body")
-  console.log(body)
   useMapEvents({
     zoomstart: () => {
       body.style.pointerEvents = "none";
