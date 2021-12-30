@@ -100,6 +100,8 @@ body,
   padding-right: 2rem !important;
 }
 
+/* offcanvas overrides */
+
 .offcanvas {
   background-color: hsla(0, 0%, 100%, 0.78) !important;
 }
@@ -108,8 +110,22 @@ body,
   flex: 1 0 auto!important;
 }
 
-/* #closeButton{
+#closeButton{
   width: 20%;
   min-height: 40px;
-  min-width:70px
-} */
+  min-width:auto
+}
+
+/* Marker popup overrides */
+.leaflet-popup{
+  margin-bottom: 20px!important;
+}
+
+.leaflet-popup-content{
+  margin: 0!important;
+}
+
+.popover-header{
+  border-top-left-radius: 12px!important;
+  border-top-right-radius: 12px!important;
+}

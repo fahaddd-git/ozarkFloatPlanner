@@ -164,9 +164,10 @@ export default function MapPage() {
       zoom={14}
       zoomControl={isMobile}
       // fullscreenControl={isMobile}
+      tap={false}
       bounds={bounds}
       whenCreated={setMap}
-      renderer={canvas({ padding: .1, tolerance:7})}
+      renderer={canvas({ padding: .1, tolerance:5})}
     >
       {/* <MyComponent></MyComponent> */}
       {/* container for dropdown box, topleft for mobile */}
@@ -186,7 +187,7 @@ export default function MapPage() {
           {/* creates feature group organization for components */}
           <FeatureGroup ref={featureGroupRef} bubblingMouseEvents={false}>
             {data !== null? <River data={data} setMarkers={setMarkers}/> : null}
-            {markers.length > 0? <Markers markers={markers}/> : null}
+            {markers.length > 0? <Markers markers={markers} measurements={measurements}/> : null}
             {/* <DistanceLine data={data} addMeasurement={addMeasurement} markers={markers}></DistanceLine> */}
             {markers.length > 1? <Distances setMeasurements={setMeasurements} data={data} markers={markers} setSlice={setSlice}></Distances> : null}
             {slice.length===0? null: <Path slice={slice}></Path>}

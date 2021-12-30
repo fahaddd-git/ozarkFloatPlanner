@@ -17,7 +17,7 @@ function NewLegend({
 
   return (
     <Container id="legend" className="text-center mb-3 vstack mx-auto">
-      <h6 className="mt-2">Distance</h6>
+      <h6 className="mt-2 fw-bold">Distance</h6>
       <Table
         className="mb-2"
         size={Browser.mobile ? "sm" : "lg"}

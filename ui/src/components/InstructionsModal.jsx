@@ -21,8 +21,8 @@ export default function InstructionsModal({ showModal, setShowModal }) {
         <Container id="offcanvasContainer">
           <Row>
             <Col>
-              <h3 className="fs-5">Plan your next adventure . . .</h3>
-              <p>through the beautiful Missouri Ozarks. Click on the map or close this window to get started!</p>
+              <h3 className="fs-5">Plan your next paddling adventure...</h3>
+              <p>...through the beautiful Missouri Ozarks. Click on the map or close this window to get started!</p>
             </Col>
           </Row>
           <Row>
@@ -62,7 +62,7 @@ export default function InstructionsModal({ showModal, setShowModal }) {
           </Row>
         </Container>
 
-      <Button className="mx-auto" onClick={()=>setShowModal(false)}>Close</Button>
+      <Button className="mx-auto" id="closeButton" onClick={()=>setShowModal(false)}>Close</Button>
         <NavLink className="text-center" href="/about">
           About
         </NavLink>
