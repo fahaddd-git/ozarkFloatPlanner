@@ -9,7 +9,6 @@ export default function Distances({
   data,
   setSlice,
 }) {
-  // let [distance, setDistance] = useState(null)
   useEffect(() => {
     // more than 1 marker exists
     if (markers.length > 1) {
@@ -38,5 +37,5 @@ export default function Distances({
     }
   }, [markers, data]);
 
-  return (null);
+  return null;
 }

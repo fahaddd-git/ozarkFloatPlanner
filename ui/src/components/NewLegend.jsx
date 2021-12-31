@@ -1,5 +1,5 @@
 import { memo, useState } from "react";
-import { Table, Button, Container, NavLink, Modal } from "react-bootstrap";
+import { Table, Button, Container, NavLink } from "react-bootstrap";
 import { round } from "@turf/helpers";
 import { Browser } from "leaflet";
 import InstructionsModal from "./InstructionsModal";

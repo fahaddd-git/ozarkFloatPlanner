@@ -3,7 +3,7 @@ import { round } from "@turf/helpers";
 
 // set the default marker icon due to bug with Leaflet
 
-import { DivOverlay, icon } from "leaflet";
+import { icon } from "leaflet";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import { Popover } from "react-bootstrap";
 let DefaultIcon = icon({
@@ -24,45 +24,50 @@ let DefaultIcon = icon({
  */
 
 export default function Markers({ markers, measurements }) {
-
-    return markers.map((position, id) => (
-      // create markers with popups
-      <Marker
-        icon={DefaultIcon}
-        key={id}
-        position={position}
-        eventHandlers={{
-          // open popup on mouseover
-          mouseover: (e) => {
-            e.target.openPopup();
-          },
-          // close popup on mouseout
-          mouseout: (e) => {
-            e.target.closePopup();
-          },
-        }}
-      >
-        {/* Popup component expects text nodes and html nodes.  React complains about not closing <br> tag */}
-        <Popup>
-        <Popover.Header className="text-center p-1">Point {id+1}</Popover.Header>
+  return markers.map((position, id) => (
+    // create markers with popups
+    <Marker
+      icon={DefaultIcon}
+      key={id}
+      position={position}
+      eventHandlers={{
+        // open popup on mouseover, close on mouseout
+        mouseover: (e) => {
+          e.target.openPopup();
+        },
+        // close popup on mouseout
+        mouseout: (e) => {
+          e.target.closePopup();
+        },
+      }}
+    >
+      {/* Popup component expects text nodes and html nodes.  React complains about not closing <br> tag */}
+      <Popup>
+        <Popover.Header className="text-center p-1">
+          Point {id + 1}
+        </Popover.Header>
         <Popover.Body className="p-2">
-          Latitude:&nbsp; &nbsp;&nbsp; {round(position.lat,3)}
+          Latitude:&nbsp; &nbsp;&nbsp; {round(position.lat, 3)}
           <br></br>
-          Longitude: {round(position.lng,3)}
+          Longitude: {round(position.lng, 3)}
           <br></br>
           {/* find the distance since previous point */}
-          <p className="text-muted text-center m-0 p-0">{id === 0? null : round(measurements[id - 1], 2) + " mi segment"}</p>
+          <p className="text-muted text-center m-0 p-0">
+            {id === 0 ? null : round(measurements[id - 1], 2) + " mi segment"}
+          </p>
           {/* find the running total of distance */}
-          <p className="text-muted text-center m-0 p-0">{id === 0? "Put In" : round(
-                    measurements.slice(0,id).reduce((total, value) => {
-                      return (total += value);
-                    }, 0),
-                    2
-                  ) + " mi total"}</p>
-
-          </Popover.Body>
-        </Popup>
-        
-      </Marker>
-    ));
+          <p className="text-muted text-center m-0 p-0">
+            {id === 0
+              ? "Put In"
+              : round(
+                  measurements.slice(0, id).reduce((total, value) => {
+                    return (total += value);
+                  }, 0),
+                  2
+                ) + " mi traveled"}
+          </p>
+        </Popover.Body>
+      </Popup>
+    </Marker>
+  ));
 }

@@ -11,6 +11,7 @@ import { Browser } from "leaflet";
  * @returns  <GeoJsonWithUpdates/>
  */
 
+// disables ability to click River on touch screen two finger zoom
 function DisableClickOnZoom() {
   let body= document.querySelector("body")
   useMapEvents({
@@ -37,17 +38,17 @@ export default function River({ data, setMarkers }) {
     <>
       {Browser.mobile ? <DisableClickOnZoom /> : null}
       <GeojsonUpdates
-        pathOptions={{ color: "#00daf2", weight: 5, opacity: 0.99 }}
+        pathOptions={{ color: "#00daf2", weight: 5 }}
         data={data}
         // bubblingMouseEvents={false}
         eventHandlers={{
           click: (e) => {
             // prevents double click of polyline
-            if (lastClick >= Date.now() - delay) {
-              return;
-            } else {
-              setLastClick(Date.now());
-            }
+            // if (lastClick >= Date.now() - delay) {
+            //   return;
+            // } else {
+            //   setLastClick(Date.now());
+            // }
             // update state of markers
             setMarkers((oldMarkers) => [...oldMarkers, e.latlng]);
           },

@@ -22,10 +22,7 @@ export default function Dropdown({ riverID, setRiverID }) {
     } catch (error) {
       console.error(error);
     }
-    // is this necessary?
-    // DomEvent.disableClickPropagation(document.getElementById("rivers"));
 
-    // cleanup effect
     return () => {
       abortController.abort();
     };
