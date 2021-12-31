@@ -77,6 +77,7 @@ export default function InstructionsModal({ showModal, setShowModal }) {
         {/* footer */}
         <Button
           className="mx-auto"
+          // variant="success"
           id="closeButton"
           onClick={() => setShowModal(false)}
         >

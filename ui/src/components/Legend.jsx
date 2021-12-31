@@ -4,16 +4,14 @@ import { round } from "@turf/helpers";
 import { Browser } from "leaflet";
 import InstructionsModal from "./InstructionsModal";
 
-function NewLegend({
+function Legend({
   measurements,
   setMarkers,
   featureGroupRef,
   setMeasurements,
   setSlice,
 }) {
-  console.log(measurements);
   const [showModal, setShowModal] = useState(true);
-  console.log(showModal);
 
   return (
     <Container id="legend" className="text-center mb-3 vstack mx-auto">
@@ -98,4 +96,4 @@ function NewLegend({
   );
 }
 
-export default memo(NewLegend);
+export default memo(Legend);

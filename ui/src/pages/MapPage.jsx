@@ -1,31 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { MapContainer, LayersControl, FeatureGroup } from "react-leaflet";
 import bbox from "@turf/bbox";
 import { Browser, canvas } from "leaflet";
 import { getRiverData } from "../utils/callAPI";
-// fullscreen leaflet imports
-// import "leaflet-fullscreen/dist/Leaflet.fullscreen.js";
-// import "leaflet-fullscreen/dist/leaflet.fullscreen.css";
-// core leaflet imports
-import "leaflet/dist/leaflet.css";
 // component imports
 import Layers from "../components/Layers";
 import River from "../components/River";
 import Markers from "../components/Markers";
-// import DistanceLine from "../components/DistanceLine";
-// import Legend from "../components/Legend";
 import Dropdown from "../components/Dropdown";
 import MapCustomControl from "../utils/MapCustomControl";
 import Distances from "../components/Distances";
 import Path from "../components/Path";
-import NewLegend from "../components/NewLegend";
+import Legend from "../components/Legend";
 import LoadingSpinner from "../components/LoadingSpinner";
 // import Stations from "../components/Stations";
 
 /*
 What needs improvement:
- - Create popup or modal for saying how to use the tool
- - change font-weight of "Distance" text, decide modal or offcanvas for instructions, change text size/padding/opacity of river select
  - implement some logging software (not sure how this works with heroku)
  - add JSdoc airbnb style
  - MapPage is potentially too complicated atm
@@ -39,8 +30,7 @@ What needs improvement:
 */
 
 const { Overlay } = LayersControl;
-
-
+const INITIAL_RIVER_ID = "615265d7f7d6c9405d5cf61a";
 
 export default function MapPage() {
   const [map, setMap] = useState(null);
@@ -50,14 +40,12 @@ export default function MapPage() {
   const [bounds, setBounds] = useState(null);
   const [isMobile, setMobile] = useState(true);
 
-  const [measurements, setMeasurements] =  useState([])
-  const [slice, setSlice] = useState([])
-  const [isLoading, setLoading] = useState(true)
-
+  const [measurements, setMeasurements] = useState([]);
+  const [slice, setSlice] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
   // sets default river by ID
-  const [riverID, setRiverID] = useState("615265d7f7d6c9405d5cf61a");
-
+  const [riverID, setRiverID] = useState(INITIAL_RIVER_ID);
 
   // calculates bounding box for map
   function calculateBounds(riverData) {
@@ -67,7 +55,6 @@ export default function MapPage() {
     const bounds = [corner2, corner1];
     return bounds;
   }
-
 
   // ref to <FeatureGroup>
   const featureGroupRef = useRef();
@@ -79,58 +66,37 @@ export default function MapPage() {
     Browser.mobile ? setMobile(false) : setMobile(true);
   }, []);
 
-  // shows and flies to user location
-  // useEffect(() => {
-  //   if (map){
-  //     map.locate().on("locationfound", function (e) {
-  //     // map.flyTo(e.latlng, map.getZoom());
-
-  //     const circle = L.circle({lat: 37.98533963422239, lng: -91.38153076171875});
-  //     circle.addTo(map);
-  //   });
-  //   map.on("locationerror",(e)=>{
-  //     console.log(e.message)
-  //   })
-
-  //   ;}
-  // }, [map]);
-
   useEffect(() => {
     let abortController = new AbortController();
 
     try {
-      setLoading(true)
-      console.log("loading true")
+      setLoading(true);
       getRiverData(riverID).then((receivedData) => {
         const bounds = calculateBounds(receivedData);
-        console.log("riverdata received bounds calculated")
         // map set, initial loading complete fly to next selected river
         if (map) {
           map.flyToBounds(bounds);
-          // clears legend pane (improve this)
-          // document.getElementById("resetButton").click();
+          // clears user drawn Path and Markers components from FeatureGroup
           let currentLayers = featureGroupRef.current.getLayers();
           // River component always first layer
           let riverLayerId = currentLayers[0]._leaflet_id;
-          //clear layers except first
-
+          // clear layers from FeatureGroup except first
           featureGroupRef.current.eachLayer(function (layer) {
             if (layer._leaflet_id !== riverLayerId) {
               featureGroupRef.current.removeLayer(layer);
             }
           });
+          // reset data
           setMarkers([]);
-          setMeasurements([])
-          setSlice([])
-
-
+          setMeasurements([]);
+          setSlice([]);
         } else {
           // set initial map bounds
           setBounds(bounds);
         }
         // set riverdata when received from api
         setData(receivedData);
-        setLoading(false)
+        setLoading(false);
         // station data (to be implemented)
         // getStations().then((stationInfo) => {
         //   setStationData(stationInfo);
@@ -147,59 +113,75 @@ export default function MapPage() {
 
   // initial loading spinner before data and map added to view
   if (bounds === null) {
-    return <LoadingSpinner></LoadingSpinner>
-    
+    return <LoadingSpinner></LoadingSpinner>;
   }
   return (
     // sets max bounds of map, zoom level, zoom controls on/off, map bounds, map height
     <>
-    {(bounds === null || isLoading)? <LoadingSpinner/> :  null}
+      {bounds === null || isLoading ? <LoadingSpinner /> : null}
 
-    <MapContainer
-      // preferCanvas={true}
-      maxBounds={[
-        [24.58, -125.68],
-        [49.58, -66.48],
-      ]}
-      zoom={14}
-      zoomControl={isMobile}
-      // fullscreenControl={isMobile}
-      tap={false}
-      bounds={bounds}
-      whenCreated={setMap}
-      renderer={canvas({ padding: .1, tolerance:5})}
-    >
-      {/* <MyComponent></MyComponent> */}
-      {/* container for dropdown box, topleft for mobile */}
-      <MapCustomControl position={isMobile? "bottomleft" : "topleft"}>
-        <Dropdown riverID={riverID} setRiverID={setRiverID} />
-      </MapCustomControl>
-      {/* sets layers control box to be collapsed if mobile */}
-      <LayersControl bubblingMouseEvents={false} collapsed={!isMobile}>
-        {/* adds layers to map */}
-        <Layers />
-        {/* adds components to monitoring stations overlay group */}
-        {/* <Overlay name="Monitoring Stations" checked={true}> */}
+      <MapContainer
+        // preferCanvas={true}
+        maxBounds={[
+          [24.58, -125.68],
+          [49.58, -66.48],
+        ]}
+        zoom={14}
+        zoomControl={isMobile}
+        // fullscreenControl={isMobile}
+        tap={false}
+        bounds={bounds}
+        whenCreated={setMap}
+        renderer={canvas({ padding: 0.1, tolerance: 5 })}
+      >
+        {/* container for dropdown box, topleft for mobile */}
+        <MapCustomControl position={isMobile ? "bottomleft" : "topleft"}>
+          <Dropdown riverID={riverID} setRiverID={setRiverID} />
+        </MapCustomControl>
+        {/* sets layers control box to be collapsed if mobile */}
+        <LayersControl bubblingMouseEvents={false} collapsed={!isMobile}>
+          {/* adds layers to map */}
+          <Layers />
+          {/* adds components to monitoring stations overlay group */}
+          {/* <Overlay name="Monitoring Stations" checked={true}> */}
           {/* {stationData && <Stations station={stationData} />} */}
-        {/* </Overlay> */}
-        {/* adds components to navigation overlay group */}
-        <Overlay name="Navigation Overlay" checked={true}>
-          {/* creates feature group organization for components */}
-          <FeatureGroup ref={featureGroupRef} bubblingMouseEvents={false}>
-            {data !== null? <River data={data} setMarkers={setMarkers}/> : null}
-            {markers.length > 0? <Markers markers={markers} measurements={measurements}/> : null}
-            {/* <DistanceLine data={data} addMeasurement={addMeasurement} markers={markers}></DistanceLine> */}
-            {markers.length > 1? <Distances setMeasurements={setMeasurements} data={data} markers={markers} setSlice={setSlice}></Distances> : null}
-            {slice.length===0? null: <Path slice={slice}></Path>}
-          </FeatureGroup>
-          {/* distance measurement legend */}
+          {/* </Overlay> */}
+          {/* adds components to navigation overlay group */}
+          <Overlay name="Navigation Overlay" checked={true}>
+            {/* creates feature group organization for components */}
+            <FeatureGroup ref={featureGroupRef} bubblingMouseEvents={false}>
+              {data !== null ? (
+                <River data={data} setMarkers={setMarkers} />
+              ) : null}
+              {markers.length > 0 ? (
+                <Markers markers={markers} measurements={measurements} />
+              ) : null}
+              {markers.length > 1 ? (
+                <Distances
+                  setMeasurements={setMeasurements}
+                  data={data}
+                  markers={markers}
+                  setSlice={setSlice}
+                ></Distances>
+              ) : null}
+              {slice.length === 0 ? null : <Path slice={slice}></Path>}
+            </FeatureGroup>
 
-          <MapCustomControl position={"bottomright"}>
-              {map !== null? <NewLegend setSlice={setSlice} setMeasurements={setMeasurements} setMarkers={setMarkers} measurements={measurements}  featureGroupRef={featureGroupRef}/> : null}
-          </MapCustomControl>
-        </Overlay>
-      </LayersControl>
-    </MapContainer>
+            {/* distance measurement legend at bottom right */}
+            <MapCustomControl position={"bottomright"}>
+              {map !== null ? (
+                <Legend
+                  setSlice={setSlice}
+                  setMeasurements={setMeasurements}
+                  setMarkers={setMarkers}
+                  measurements={measurements}
+                  featureGroupRef={featureGroupRef}
+                />
+              ) : null}
+            </MapCustomControl>
+          </Overlay>
+        </LayersControl>
+      </MapContainer>
     </>
   );
 }
