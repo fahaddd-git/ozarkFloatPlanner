@@ -104,7 +104,7 @@ export default function MapPage() {
         setData(receivedData);
         setLoading(false);
         getStations().then((stationInfo) => {
-          setStationData(stationInfo);
+          setStationData(stationInfo.features);
         });
         // station data (to be implemented)
         // getStations().then((stationInfo) => {

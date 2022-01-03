@@ -23,6 +23,15 @@ let DefaultIcon = icon({
  *          </Marker
  */
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+async function delayClosePopup(e, ms){
+  await sleep(ms)
+  e.target.closePopup()
+}
+
+
 export default function Markers({ markers, measurements }) {
   return markers.map((position, id) => (
     // create markers with popups
@@ -31,7 +40,11 @@ export default function Markers({ markers, measurements }) {
       key={id}
       position={position}
       eventHandlers={{
-        // open popup on mouseover, close on mouseout
+        add: (e)=>{
+          e.target.openPopup()
+          delayClosePopup(e,3000)
+        },
+        // open popup on mouseover
         mouseover: (e) => {
           e.target.openPopup();
         },
@@ -43,7 +56,7 @@ export default function Markers({ markers, measurements }) {
     >
       {/* Popup component expects text nodes and html nodes.  React complains about not closing <br> tag */}
       <Popup>
-        <Popover.Header className="text-center p-1">
+        <Popover.Header className="text-center p-1 fw-bold">
           Waypoint {id + 1}
         </Popover.Header>
         <Popover.Body className="p-2">

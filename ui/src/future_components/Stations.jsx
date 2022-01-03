@@ -1,8 +1,6 @@
 // River monitoring stations- TO BE IMPLEMENTED
 
-import React, {useRef, memo } from "react";
-import ReactDOMServer from "react-dom/server";
-import L from "leaflet";
+import React, { memo } from "react";
 import { round } from "@turf/helpers";
 
 
@@ -10,7 +8,7 @@ import { round } from "@turf/helpers";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import GeoJsonWithUpdates from "../utils/GeojsonUpdates"
 import MarkerPopup from "./MarkerPopup";
-import { CircleMarker, Marker, Popup, Tooltip } from "react-leaflet";
+import { CircleMarker, Marker, Popup } from "react-leaflet";
 import { Button, Popover } from "react-bootstrap";
 // // set the default icon
 // let DefaultIcon = L.icon({
@@ -33,37 +31,50 @@ import { Button, Popover } from "react-bootstrap";
 function Stations({ stationData, setMarkers }) {
   const siteMonitoringPointsStyle = {
     radius: 10,
-    fillColor: "#5e0404",
+    fillColor: "#198754",
     color: "#ffffff",
     weight: 2,
     opacity: 1,
-    fillOpacity: 1,
-    // popupAnchor: [-100,-10],
-    // zindex: 2
+    fillOpacity: 1
   };
-return stationData.features.map((feature, id)=>{
+  console.log("rerender")
+  console.log(stationData)
+return stationData.map((feature, id)=>{
     const featureLocation = {lat: feature.geometry.coordinates[1], lng: feature.geometry.coordinates[0]}
+    let mouseoverEvent;
     return <CircleMarker pathOptions={siteMonitoringPointsStyle} key={id} center={featureLocation} eventHandlers={{
       click:(e)=>{
-        // setMarkers((oldMarkers) => [...oldMarkers, e.latlng]);
+        e.target.openPopup()
 
       },
       mouseover:(e)=>{
+        mouseoverEvent=e
         e.target.openPopup()
       },
-      mouseout: (e)=>{
-        m(e)
-      }
+      // mouseout: (e)=>{
+      //   m(e)
+      // }
     }}>
-      <Popup >
-      <Popover.Header style={{width:"8rem", fontSize:"12px"}} className="text-center p-1 text-wrap">
+      <Popup eventHandlers={{
+        mouseout:(e)=>{
+          console.log("mousout")
+        }
+      }} >
+      <Popover.Header style={{fontSize:"1em", backgroundColor:"#fd9c0d99"}} className="text-center fw-bold text-wrap">
           {feature.properties.name}
         </Popover.Header>
-        <Popover.Body className="p-2">
+        <Popover.Body className="p-2 text-center">
+          <p className=" mt-0 mb-1 text-muted">Monitoring Station</p>
+          <Button size="sm" className="btn-mini mb-1" onClick={()=>{
+            window.open(feature.properties.uri, '_blank').focus();
+            
+          }}>Latest Conditions</Button>
+          <br></br>
           Latitude:&nbsp; &nbsp;&nbsp; {round(featureLocation.lat, 3)}
           <br></br>
           Longitude: {round(featureLocation.lng, 3)}
           <br></br>
+
           {/* find the distance since previous point */}
           {/* <p className="text-muted text-center m-0 p-0">
             {id === 0 ? null : round(measurements[id - 1], 2) + " mi segment"}
@@ -79,8 +90,8 @@ return stationData.features.map((feature, id)=>{
                   2
                 ) + " mi traveled"}
           </p> */}
-          <Button size="sm" className="mx-auto" onClick={(e)=>{
-            console.log(e)
+          <Button size="sm" className="mx-auto text-wrap btn-mini my-1" onClick={(e)=>{
+            // mouseoverEvent.target.closePopup()
               setMarkers((oldMarkers) => [...oldMarkers, featureLocation]);
           }}>
             Add Waypoint
@@ -93,13 +104,13 @@ return stationData.features.map((feature, id)=>{
   })
   // return null
 // console.log(stationData)
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-  async function m(e){
-    await sleep(2000)
-    e.target.closePopup()
-  }
+  // function sleep(ms) {
+  //   return new Promise((resolve) => setTimeout(resolve, ms));
+  // }
+  // async function delayClosePopup(e){
+  //   await sleep(2000)
+  //   e.target.closePopup()
+  // }
   // console.log(station)
 
 

@@ -11,7 +11,7 @@ function Legend({
   setMeasurements,
   setSlice,
 }) {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <Container id="legend" className="text-center mb-3 vstack mx-auto">
