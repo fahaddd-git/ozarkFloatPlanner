@@ -6,12 +6,10 @@ export async function getRiverData (riverID) {
 };
 
 // retrieves list of rivers for dropdown
-export async function getRivers (setAvailableRivers) {
+export async function getRivers () {
   const response = await fetch("/available");
   const data = await response.json();
-  // state setter
-  setAvailableRivers(data);
-  return data;
+  return data
 };
 
 // retrieves riverstations data (not yet implemented)

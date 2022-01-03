@@ -18,7 +18,9 @@ export default function Dropdown({ riverID, setRiverID }) {
   useEffect(() => {
     let abortController = new AbortController();
     try {
-      getRivers(setAvailableRivers);
+      getRivers().then((data)=>{
+        setAvailableRivers(data)
+      });
     } catch (error) {
       console.error(error);
     }
