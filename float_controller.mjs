@@ -51,7 +51,7 @@ app.get("/stations/:name", cors(corsOptions), (req, res) => {
     .findStationByName(stationName)
     .then((stationdata) => {
       res.status(200).json(stationdata);
-      console.log(`${stationdata.name} requested`);
+      console.log(`${stationdata.name} station requested`);
     })
     .catch((error) => {
       console.error(error);

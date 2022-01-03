@@ -17,7 +17,7 @@ export default function Dropdown({ riverID, setRiverID }) {
   // fetches data from the server to determine contents of dropdown box
   useEffect(() => {
     let abortController = new AbortController();
-    try {
+    try { 
       getRivers().then((data)=>{
         setAvailableRivers(data)
       });

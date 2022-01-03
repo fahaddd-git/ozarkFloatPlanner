@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
   Offcanvas,
   Container,
@@ -13,8 +14,9 @@ import instructionsMarkers from "../images/instructionsMarkers.gif";
 import instructionsRivers from "../images/instructionsRivers.gif";
 import instructionsViews from "../images/instructionsViews.gif";
 
-export default function InstructionsModal({ showModal, setShowModal }) {
+function InstructionsModal({ showModal, setShowModal }) {
   const imageWidth = "60%";
+  console.log("modal")
   return (
     <Offcanvas show={showModal} onHide={() => setShowModal(false)}>
 
@@ -93,3 +95,5 @@ export default function InstructionsModal({ showModal, setShowModal }) {
     </Offcanvas>
   );
 }
+
+export default memo(InstructionsModal)

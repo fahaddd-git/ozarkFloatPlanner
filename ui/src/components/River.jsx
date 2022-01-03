@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import GeojsonUpdates from "../utils/GeojsonUpdates";
 import { useMapEvents } from "react-leaflet";
 import { Browser } from "leaflet";
@@ -25,7 +25,7 @@ function DisableClickOnZoom() {
   return null;
 }
 
-export default function River({ data, setMarkers }) {
+function River({ data, setMarkers }) {
   // click delay handler to fix bug with double click on iOS
   let [lastClick, setLastClick] = useState(0);
   let delay = 200;
@@ -57,3 +57,5 @@ export default function River({ data, setMarkers }) {
     </>
   );
 }
+
+export default memo(River)

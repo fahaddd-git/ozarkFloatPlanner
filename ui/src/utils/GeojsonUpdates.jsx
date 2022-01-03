@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 import { GeoJSON } from "react-leaflet";
 
 /**
@@ -8,6 +8,7 @@ import { GeoJSON } from "react-leaflet";
  */
 
 export default function GeoJsonWithUpdates(props) {
+  console.log("geojson")
   const geoJsonLayerRef = useRef(null);
 
   useEffect(() => {
@@ -27,3 +28,4 @@ export default function GeoJsonWithUpdates(props) {
 
   return <GeoJSON {...props} ref={geoJsonLayerRef} />;
 }
+

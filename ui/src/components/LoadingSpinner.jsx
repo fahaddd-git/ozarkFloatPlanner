@@ -2,7 +2,6 @@ import { memo } from "react";
 import { Spinner } from "react-bootstrap";
 
 function LoadingSpinner() {
-  console.log("spinning");
   return (
     // center spinner in middle of screen
     // <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center">

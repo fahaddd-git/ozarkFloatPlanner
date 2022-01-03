@@ -44,7 +44,7 @@ export default function Markers({ markers, measurements }) {
       {/* Popup component expects text nodes and html nodes.  React complains about not closing <br> tag */}
       <Popup>
         <Popover.Header className="text-center p-1">
-          Point {id + 1}
+          Waypoint {id + 1}
         </Popover.Header>
         <Popover.Body className="p-2">
           Latitude:&nbsp; &nbsp;&nbsp; {round(position.lat, 3)}

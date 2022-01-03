@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { MapContainer, LayersControl, FeatureGroup } from "react-leaflet";
 import bbox from "@turf/bbox";
 import { Browser, canvas } from "leaflet";
-import { getRiverData } from "../utils/callAPI";
+import { getRiverData, getStations } from "../utils/callAPI";
 // component imports
 import Layers from "../components/Layers";
 import River from "../components/River";
@@ -13,7 +13,7 @@ import Distances from "../components/Distances";
 import Path from "../components/Path";
 import Legend from "../components/Legend";
 import LoadingSpinner from "../components/LoadingSpinner";
-// import Stations from "../components/Stations";
+import Stations from "../future_components/Stations";
 
 /*
 What needs improvement:
@@ -36,7 +36,7 @@ export default function MapPage() {
   const [map, setMap] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [data, setData] = useState(null);
-  // const [stationData, setStationData] = useState();
+  const [stationData, setStationData] = useState();
   const [bounds, setBounds] = useState(null);
   const [isMobile, setMobile] = useState(true);
 
@@ -59,7 +59,7 @@ export default function MapPage() {
   // ref to <FeatureGroup>
   const featureGroupRef = useRef();
   // ref to <Stations>'s featureGroup
-  // const stationsRef = useRef()
+  const stationsRef = useRef();
 
   useEffect(() => {
     // determines if mobile user for leaflet-fullscreen
@@ -73,6 +73,8 @@ export default function MapPage() {
       setLoading(true);
       getRiverData(riverID).then((receivedData) => {
         const bounds = calculateBounds(receivedData);
+
+        
         // map set, initial loading complete fly to next selected river
         if (map) {
           map.flyToBounds(bounds);
@@ -86,6 +88,10 @@ export default function MapPage() {
               featureGroupRef.current.removeLayer(layer);
             }
           });
+          stationsRef.current.clearLayers();
+
+          setStationData([]);
+
           // reset data
           setMarkers([]);
           setMeasurements([]);
@@ -97,16 +103,19 @@ export default function MapPage() {
         // set riverdata when received from api
         setData(receivedData);
         setLoading(false);
+        getStations().then((stationInfo) => {
+          setStationData(stationInfo);
+        });
         // station data (to be implemented)
         // getStations().then((stationInfo) => {
-        //   setStationData(stationInfo);
-        // });
-      });
-    } catch (error) {
-      console.log(error);
-    }
-    // cleanup useEffect async functions
-    return () => {
+          //   setStationData(stationInfo);
+          // });
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      // cleanup useEffect async functions
+      return () => {
       abortController.abort();
     };
   }, [riverID]);
@@ -142,10 +151,14 @@ export default function MapPage() {
         <LayersControl bubblingMouseEvents={false} collapsed={!isMobile}>
           {/* adds layers to map */}
           <Layers />
+
           {/* adds components to monitoring stations overlay group */}
-          {/* <Overlay name="Monitoring Stations" checked={true}> */}
-          {/* {stationData && <Stations station={stationData} />} */}
-          {/* </Overlay> */}
+          <Overlay name="Monitoring Stations" checked={true}>
+            <FeatureGroup ref={stationsRef}>
+              {stationData && <Stations stationData={stationData} setMarkers={setMarkers}/>}
+            </FeatureGroup>
+          </Overlay>
+
           {/* adds components to navigation overlay group */}
           <Overlay name="Navigation Overlay" checked={true}>
             {/* creates feature group organization for components */}
