@@ -7,7 +7,7 @@ import { StationData } from "./riverStationSchema.mjs";
 dotenv.config();
 
 let connection;
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "production") {
   connection = process.env.MONGODB_CONNECTION_STRING;
 } else {
   connection = "mongodb://localhost:27017/floatplanner";
