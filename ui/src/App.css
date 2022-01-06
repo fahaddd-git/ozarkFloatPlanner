@@ -134,6 +134,12 @@ body,
   border-top-right-radius: 12px!important;
 }
 
+.popover-header-monitoring-stations {
+  font-size: 1em!important;
+  background-color: #fd9c0d99!important
+
+}
+
 .btn-mini{
   font-size: 1em!important;
 }

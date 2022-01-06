@@ -30,6 +30,7 @@ What needs improvement:
 */
 
 const { Overlay } = LayersControl;
+//   { _id: 615265d7f7d6c9405d5cf61a, name: 'Meramec River' },
 const INITIAL_RIVER_ID = "615265d7f7d6c9405d5cf61a";
 
 export default function MapPage() {

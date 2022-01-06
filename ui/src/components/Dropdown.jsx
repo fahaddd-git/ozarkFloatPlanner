@@ -9,9 +9,9 @@ import { getRivers } from "../utils/callAPI";
  * @returns
  */
 export default function Dropdown({ riverID, setRiverID }) {
-  // state for available rivers in the database
+  //  available rivers in the database
   let [availableRivers, setAvailableRivers] = useState();
-  // receives default river from MapPage
+  // receives river from MapPage
   let [selectedRiver, setSelectedRiver] = useState(riverID);
 
   // fetches data from the server to determine contents of dropdown box

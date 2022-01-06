@@ -17,7 +17,7 @@ const __dirname = path.resolve();
 // set cors policy
 let corsOptions = {
   origin: "http://localhost:7000",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 200, 
 };
 
 // check if this is necessary
@@ -41,7 +41,7 @@ app.use(compression());
 // });
 
 // adds a new river to the db
-app.post("/add_river_data", (req, res) => {});
+// app.post("/add_river_data", (req, res) => {});
 
 // get river monitoring stations by name
 app.get("/stations/:name", cors(corsOptions), (req, res) => {
@@ -83,6 +83,7 @@ app.get("/available", cors(corsOptions), (req, res) => {
   river
     .findRiverIdName(projection)
     .then((rivers) => {
+      console.log(rivers)
       res.status(200).json(rivers);
       console.log("list of rivers request received");
     })

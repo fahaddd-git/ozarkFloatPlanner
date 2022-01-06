@@ -55,17 +55,13 @@ return stationData.map((feature, id)=>{
       //   m(e)
       // }
     }}>
-      <Popup eventHandlers={{
-        mouseout:(e)=>{
-          console.log("mousout")
-        }
-      }} >
-      <Popover.Header style={{fontSize:"1em", backgroundColor:"#fd9c0d99"}} className="text-center fw-bold text-wrap">
+      <Popup>
+      <Popover.Header className="text-center px-2 fw-bold text-wrap popover-header-monitoring-stations">
           {feature.properties.name}
         </Popover.Header>
         <Popover.Body className="p-2 text-center">
           <p className=" mt-0 mb-1 text-muted">Monitoring Station</p>
-          <Button size="sm" className="btn-mini mb-1" onClick={()=>{
+          <Button size="sm" variant="danger" className="btn-mini mb-1" onClick={()=>{
             window.open(feature.properties.uri, '_blank').focus();
             
           }}>Latest Conditions</Button>
