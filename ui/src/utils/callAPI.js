@@ -1,6 +1,6 @@
 // retrieves riverbed data
-export async function getRiverData (riverID) {
-  const response = await fetch(`/riverbed/${riverID}`);
+export async function getRiverData (riverName) {
+  const response = await fetch(`/riverbed/${riverName}`);
   const data = await response.json();
   return data;
 };
@@ -13,8 +13,8 @@ export async function getRivers () {
 };
 
 // retrieves riverstations data (not yet implemented)
-export async function getStations () {
-  const response = await fetch(`/stations/Meramec%20River`);
+export async function getStations (riverName) {
+  const response = await fetch(`/stations/${riverName}`);
   const stations = await response.json();
   return stations;
 };

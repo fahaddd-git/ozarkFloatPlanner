@@ -9,7 +9,7 @@ body,
   height: 100%;
   overflow: none;
   position: absolute;
-  /* z-index: 500; */
+  z-index: 500;
 }
 
 /* map layer selection pane */

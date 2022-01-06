@@ -94,14 +94,14 @@ app.get("/available", cors(corsOptions), (req, res) => {
 });
 
 // endpoint for retrieving the riverbed data points
-app.get("/riverbed/:_id", cors(corsOptions), (req, res) => {
+app.get("/riverbed/:name", cors(corsOptions), (req, res) => {
   // TODO investigate CORS policy, set limits before deployment
   // res.set('Access-Control-Allow-Origin', 'localhost:7000');
-  const riverId = req.params._id;
+  const riverName = req.params.name;
 
   // search for the river with the matching ID using the model
   river
-    .findRiverById(riverId)
+    .findRiverByName(riverName)
     .then((river) => {
       // send the data if river is found else send 404
       if (river !== null) {

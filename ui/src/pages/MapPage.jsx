@@ -30,8 +30,8 @@ What needs improvement:
 */
 
 const { Overlay } = LayersControl;
-//   { _id: 615265d7f7d6c9405d5cf61a, name: 'Meramec River' },
-const INITIAL_RIVER_ID = "615265d7f7d6c9405d5cf61a";
+// const INITIAL_RIVER_OBJ=  { _id: "615265d7f7d6c9405d5cf61a", name: 'Meramec River' }
+const INITIAL_RIVER_NAME = "Meramec River";
 
 export default function MapPage() {
   const [map, setMap] = useState(null);
@@ -46,7 +46,7 @@ export default function MapPage() {
   const [isLoading, setLoading] = useState(true);
 
   // sets default river by ID
-  const [riverID, setRiverID] = useState(INITIAL_RIVER_ID);
+  const [riverName, setRiverName] = useState(INITIAL_RIVER_NAME);
 
   // calculates bounding box for map
   function calculateBounds(riverData) {
@@ -72,7 +72,7 @@ export default function MapPage() {
 
     try {
       setLoading(true);
-      getRiverData(riverID).then((receivedData) => {
+      getRiverData(riverName).then((receivedData) => {
         const bounds = calculateBounds(receivedData);
 
         
@@ -104,7 +104,7 @@ export default function MapPage() {
         // set riverdata when received from api
         setData(receivedData);
         setLoading(false);
-        getStations().then((stationInfo) => {
+        getStations(riverName).then((stationInfo) => {
           setStationData(stationInfo.features);
         });
         // station data (to be implemented)
@@ -119,7 +119,7 @@ export default function MapPage() {
       return () => {
       abortController.abort();
     };
-  }, [riverID]);
+  }, [riverName]);
 
   // initial loading spinner before data and map added to view
   if (bounds === null) {
@@ -146,7 +146,7 @@ export default function MapPage() {
       >
         {/* container for dropdown box, topleft for mobile */}
         <MapCustomControl position={isMobile ? "bottomleft" : "topleft"}>
-          <Dropdown riverID={riverID} setRiverID={setRiverID} />
+          <Dropdown riverName={riverName} setRiverName={setRiverName} />
         </MapCustomControl>
         {/* sets layers control box to be collapsed if mobile */}
         <LayersControl bubblingMouseEvents={false} collapsed={!isMobile}>
