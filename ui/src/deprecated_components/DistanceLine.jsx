@@ -17,7 +17,7 @@ export default function DistanceLine({ data, addMeasurement, markers }) {
       // create lines between points 2 at a time until last point reached
       return markers.map((position, index) => {
         if (index < markersLength - 1) {
-          console.log("DistanceLine map")
+          
           return (
             <DrawDistance
               key={index}

@@ -13,7 +13,7 @@ import Distances from "../components/Distances";
 import Path from "../components/Path";
 import Legend from "../components/Legend";
 import LoadingSpinner from "../components/LoadingSpinner";
-import Stations from "../future_components/Stations";
+import Stations from "../components/Stations";
 
 /*
 What needs improvement:
@@ -104,8 +104,9 @@ export default function MapPage() {
         // set riverdata when received from api
         setData(receivedData);
         setLoading(false);
+        // get stations, check if any associated with this
         getStations(riverName).then((stationInfo) => {
-          setStationData(stationInfo.features);
+          stationInfo? setStationData(stationInfo.features) : setStationData(null);
         });
         // station data (to be implemented)
         // getStations().then((stationInfo) => {

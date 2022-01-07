@@ -19,7 +19,6 @@ export default function Dropdown({ riverName, setRiverName }) {
     let abortController = new AbortController();
     try { 
       getRivers().then((data)=>{
-        console.log(data)
         setAvailableRivers(data)
       });
     } catch (error) {

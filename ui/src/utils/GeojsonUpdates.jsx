@@ -8,7 +8,6 @@ import { GeoJSON } from "react-leaflet";
  */
 
  export default function GeoJsonWithUpdates(props) {
-  console.log("geojson")
   const geoJsonLayerRef = useRef(null);
 
   useEffect(() => {

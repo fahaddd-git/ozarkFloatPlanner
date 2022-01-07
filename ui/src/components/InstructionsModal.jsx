@@ -16,7 +16,6 @@ import instructionsViews from "../images/instructionsViews.gif";
 
 function InstructionsModal({ showModal, setShowModal }) {
   const imageWidth = "60%";
-  console.log("modal")
   return (
     <Offcanvas show={showModal} onHide={() => setShowModal(false)}>
 
