@@ -31,7 +31,7 @@ export default function DrawDistance({ data, addMeasurement, markers, index }) {
   //   addMeasurement(travelDistance)
 
   // }, [travelDistance])
-  console.log("Measurement added in DrawDistance")
+  // console.log("Measurement added in DrawDistance")
 
 
   return (

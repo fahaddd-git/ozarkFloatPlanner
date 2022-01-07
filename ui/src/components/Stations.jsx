@@ -2,14 +2,9 @@
 
 import React, { memo } from "react";
 import { round } from "@turf/helpers";
-
-
-// import bugged marker shadow
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import GeoJsonWithUpdates from "../utils/GeojsonUpdates"
-import MarkerPopup from "./MarkerPopup";
-import { CircleMarker, Marker, Popup } from "react-leaflet";
+import { CircleMarker, Popup } from "react-leaflet";
 import { Button, Popover } from "react-bootstrap";
+// import bugged marker shadow
 // // set the default icon
 // let DefaultIcon = L.icon({
 //   iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
@@ -37,8 +32,7 @@ function Stations({ stationData, setMarkers }) {
     opacity: 1,
     fillOpacity: 1
   };
-  console.log("rerender")
-  console.log(stationData)
+
 return stationData.map((feature, id)=>{
     const featureLocation = {lat: feature.geometry.coordinates[1], lng: feature.geometry.coordinates[0]}
     let mouseoverEvent;
@@ -71,21 +65,6 @@ return stationData.map((feature, id)=>{
           Longitude: {round(featureLocation.lng, 3)}
           <br></br>
 
-          {/* find the distance since previous point */}
-          {/* <p className="text-muted text-center m-0 p-0">
-            {id === 0 ? null : round(measurements[id - 1], 2) + " mi segment"}
-          </p> */}
-          {/* find the running total of distance */}
-          {/* <p className="text-muted text-center m-0 p-0">
-            {id === 0
-              ? "Put In"
-              : round(
-                  measurements.slice(0, id).reduce((total, value) => {
-                    return (total += value);
-                  }, 0),
-                  2
-                ) + " mi traveled"}
-          </p> */}
           <Button size="sm" className="mx-auto text-wrap btn-mini my-1" onClick={(e)=>{
             // mouseoverEvent.target.closePopup()
               setMarkers((oldMarkers) => [...oldMarkers, featureLocation]);

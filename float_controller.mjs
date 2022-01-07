@@ -51,7 +51,7 @@ app.get("/stations/:name", cors(corsOptions), (req, res) => {
     .findStationByName(stationName)
     .then((stationdata) => {
       res.status(200).json(stationdata);
-      console.log(`${stationdata.name} station requested`);
+      // console.log(`${stationdata.name} station requested`);
     })
     .catch((error) => {
       console.error(error);
@@ -83,9 +83,9 @@ app.get("/available", cors(corsOptions), (req, res) => {
   river
     .findRiverIdName(projection)
     .then((rivers) => {
-      console.log(rivers)
+      // console.log(rivers)
       res.status(200).json(rivers);
-      console.log("list of rivers request received");
+      // console.log("list of rivers request received");
     })
     .catch((error) => {
       console.error(error);
@@ -117,7 +117,7 @@ app.get("/riverbed/:name", cors(corsOptions), (req, res) => {
 
         res.json(riverData);
 
-        console.log(river.name + " requested");
+        // console.log(river.name + " requested");
       } else {
         res.status(404).json({ Error: "Resource not found" });
       }
@@ -136,7 +136,7 @@ app.listen(PORT, () => {
 });
 
 if (process.env.NODE_ENV === "production") {
-  console.log("production");
+  // console.log("production");
   app.use(express.static(path.join(__dirname, "./ui/build")));
   app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "./ui/build", "index.html"));

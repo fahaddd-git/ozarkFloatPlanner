@@ -3,7 +3,7 @@ import { Table, Button } from "react-bootstrap";
 
 export default function DistanceTable({ distances }) {
   let [measurements, setMeasurements] = useState([]);
-  console.log(distances)
+
 // update the state
 // useEffect(() => {
 //     setMeasurements(oldMeasurements=>[...oldMeasurements, distances])
