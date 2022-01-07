@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { Container, Button, Card, Col, Row, Modal } from "react-bootstrap";
-import smallmouthPic from "../images/smallmouth.jpg";
-import canoeingPic from "../images/canoeing.jpg";
+import smallmouthPic from "../images/optimized/smallmouth.jpg";
+import canoeingPic from "../images/optimized/canoeing.jpg";
 
-import cavePic from "../images/cave.jpg";
-import groupPic from "../images/group.jpg";
-import springPic from "../images/spring.jpg";
-import riverPic from "../images/river.jpg";
+import cavePic from "../images/optimized/cave.jpg";
+import groupPic from "../images/optimized/group.jpg";
+import springPic from "../images/optimized/spring.jpg";
+import riverPic from "../images/optimized/river.jpg";
 
 import "../App.css";
 

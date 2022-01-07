@@ -1,19 +1,17 @@
 import { memo, useState } from "react";
-import { Table, Button, Container, NavLink, Modal } from "react-bootstrap";
+import { Table, Button, Container, NavLink } from "react-bootstrap";
 import { round } from "@turf/helpers";
 import { Browser } from "leaflet";
 import InstructionsModal from "./InstructionsModal";
 
-function NewLegend({
+function Legend({
   measurements,
   setMarkers,
   featureGroupRef,
   setMeasurements,
   setSlice,
 }) {
-  console.log(measurements);
   const [showModal, setShowModal] = useState(true);
-  console.log(showModal);
 
   return (
     <Container id="legend" className="text-center mb-3 vstack mx-auto">
@@ -59,7 +57,6 @@ function NewLegend({
         </tfoot>
       </Table>
       <Button
-        variant="primary"
         id="resetButton"
         size={Browser.mobile ? "sm" : "md"}
         className="mb-0"
@@ -98,4 +95,4 @@ function NewLegend({
   );
 }
 
-export default memo(NewLegend);
+export default memo(Legend);

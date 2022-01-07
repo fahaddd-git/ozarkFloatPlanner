@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import GeojsonUpdates from "../utils/GeojsonUpdates";
 import { useMapEvents } from "react-leaflet";
 import { Browser } from "leaflet";
@@ -11,6 +11,7 @@ import { Browser } from "leaflet";
  * @returns  <GeoJsonWithUpdates/>
  */
 
+// disables ability to click River on touch screen two finger zoom
 function DisableClickOnZoom() {
   let body= document.querySelector("body")
   useMapEvents({
@@ -24,7 +25,7 @@ function DisableClickOnZoom() {
   return null;
 }
 
-export default function River({ data, setMarkers }) {
+function River({ data, setMarkers }) {
   // click delay handler to fix bug with double click on iOS
   let [lastClick, setLastClick] = useState(0);
   let delay = 200;
@@ -37,17 +38,17 @@ export default function River({ data, setMarkers }) {
     <>
       {Browser.mobile ? <DisableClickOnZoom /> : null}
       <GeojsonUpdates
-        pathOptions={{ color: "#00daf2", weight: 5, opacity: 0.99 }}
+        pathOptions={{ color: "#00daf2", weight: 5 }}
         data={data}
         // bubblingMouseEvents={false}
         eventHandlers={{
           click: (e) => {
             // prevents double click of polyline
-            if (lastClick >= Date.now() - delay) {
-              return;
-            } else {
-              setLastClick(Date.now());
-            }
+            // if (lastClick >= Date.now() - delay) {
+            //   return;
+            // } else {
+            //   setLastClick(Date.now());
+            // }
             // update state of markers
             setMarkers((oldMarkers) => [...oldMarkers, e.latlng]);
           },
@@ -56,3 +57,5 @@ export default function River({ data, setMarkers }) {
     </>
   );
 }
+
+export default memo(River)

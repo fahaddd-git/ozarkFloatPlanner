@@ -121,6 +121,10 @@ body,
   margin-bottom: 20px!important;
 }
 
+.leaflet-popup-content-wrapper{
+  padding:0!important
+}
+
 .leaflet-popup-content{
   margin: 0!important;
 }
@@ -128,4 +132,14 @@ body,
 .popover-header{
   border-top-left-radius: 12px!important;
   border-top-right-radius: 12px!important;
+}
+
+.popover-header-monitoring-stations {
+  font-size: 1em!important;
+  background-color: #fd9c0d99!important
+
+}
+
+.btn-mini{
+  font-size: 1em!important;
 }

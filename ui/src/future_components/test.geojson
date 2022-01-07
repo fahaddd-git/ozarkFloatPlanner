@@ -1,0 +1,93 @@
+{
+  "_id": { "$oid": "615653a8777e4c46f6bee479" },
+  "type": "FeatureCollection",
+  "name": "Big River",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-90.5101583, 37.88930278]
+      },
+      "properties": {
+        "type": "hydrolocation",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "identifier": "USGS-07017260",
+        "name": "Big River below Desloge, MO",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/07017260",
+        "comid": "4639081",
+        "reachcode": "07140104000195",
+        "measure": "35.8447300000",
+        "navigation": "https://labs.waterdata.usgs.gov/api/nldi/linked-data/nwissite/USGS-07017260/navigation"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-90.6908889, 37.83] },
+      "properties": {
+        "type": "hydrolocation",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "identifier": "USGS-07017200",
+        "name": "Big River at Irondale, MO",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/07017200",
+        "comid": "4638489",
+        "reachcode": "07140104000220",
+        "measure": "9.3352500000",
+        "navigation": "https://labs.waterdata.usgs.gov/api/nldi/linked-data/nwissite/USGS-07017200/navigation"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-90.6378056, 38.3917222] },
+      "properties": {
+        "type": "hydrolocation",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "identifier": "USGS-07018500",
+        "name": "Big River at Byrnesville, MO",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/07018500",
+        "comid": "4635347",
+        "reachcode": "07140104000015",
+        "measure": "32.2987300000",
+        "navigation": "https://labs.waterdata.usgs.gov/api/nldi/linked-data/nwissite/USGS-07018500/navigation"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-90.7060556, 38.1596111] },
+      "properties": {
+        "type": "hydrolocation",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "identifier": "USGS-07018100",
+        "name": "Big River near Richwoods, MO",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/07018100",
+        "comid": "4636879",
+        "reachcode": "07140104000057",
+        "measure": "98.2649100000",
+        "navigation": "https://labs.waterdata.usgs.gov/api/nldi/linked-data/nwissite/USGS-07018100/navigation"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-90.5744167, 37.96552778]
+      },
+      "properties": {
+        "type": "hydrolocation",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "identifier": "USGS-07017610",
+        "name": "Big River below Bonne Terre, MO",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/07017610",
+        "comid": "4637477",
+        "reachcode": "07140104000180",
+        "measure": "100.0000000000",
+        "navigation": "https://labs.waterdata.usgs.gov/api/nldi/linked-data/nwissite/USGS-07017610/navigation"
+      }
+    }
+  ]
+}

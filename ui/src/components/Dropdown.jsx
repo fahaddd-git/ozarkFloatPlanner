@@ -8,24 +8,24 @@ import { getRivers } from "../utils/callAPI";
  * @param {Function}    setRiverID  Sets the river to be the selected ID
  * @returns
  */
-export default function Dropdown({ riverID, setRiverID }) {
-  // state for available rivers in the database
+export default function Dropdown({ riverName, setRiverName }) {
+  //  available rivers in the database
   let [availableRivers, setAvailableRivers] = useState();
-  // receives default river from MapPage
-  let [selectedRiver, setSelectedRiver] = useState(riverID);
+  // receives river from MapPage
+  let [selectedRiver, setSelectedRiver] = useState(riverName);
 
   // fetches data from the server to determine contents of dropdown box
   useEffect(() => {
     let abortController = new AbortController();
-    try {
-      getRivers(setAvailableRivers);
+    try { 
+      getRivers().then((data)=>{
+        console.log(data)
+        setAvailableRivers(data)
+      });
     } catch (error) {
       console.error(error);
     }
-    // is this necessary?
-    // DomEvent.disableClickPropagation(document.getElementById("rivers"));
 
-    // cleanup effect
     return () => {
       abortController.abort();
     };
@@ -44,14 +44,14 @@ export default function Dropdown({ riverID, setRiverID }) {
         // set selected river
         setSelectedRiver(e.target.value);
         //update map
-        setRiverID(e.target.value);
+        setRiverName(e.target.value);
       }}
       value={selectedRiver}
     >
       {availableRivers
         ? availableRivers.map((riverObj, index) => {
             return (
-              <option key={index} value={riverObj._id}>
+              <option key={index} value={riverObj.name}>
                 {riverObj.name}
               </option>
             );

@@ -17,7 +17,7 @@ const __dirname = path.resolve();
 // set cors policy
 let corsOptions = {
   origin: "http://localhost:7000",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 200, 
 };
 
 // check if this is necessary
@@ -41,7 +41,7 @@ app.use(compression());
 // });
 
 // adds a new river to the db
-app.post("/add_river_data", (req, res) => {});
+// app.post("/add_river_data", (req, res) => {});
 
 // get river monitoring stations by name
 app.get("/stations/:name", cors(corsOptions), (req, res) => {
@@ -51,7 +51,7 @@ app.get("/stations/:name", cors(corsOptions), (req, res) => {
     .findStationByName(stationName)
     .then((stationdata) => {
       res.status(200).json(stationdata);
-      console.log(`${stationdata.name} requested`);
+      console.log(`${stationdata.name} station requested`);
     })
     .catch((error) => {
       console.error(error);
@@ -83,6 +83,7 @@ app.get("/available", cors(corsOptions), (req, res) => {
   river
     .findRiverIdName(projection)
     .then((rivers) => {
+      console.log(rivers)
       res.status(200).json(rivers);
       console.log("list of rivers request received");
     })
@@ -93,14 +94,14 @@ app.get("/available", cors(corsOptions), (req, res) => {
 });
 
 // endpoint for retrieving the riverbed data points
-app.get("/riverbed/:_id", cors(corsOptions), (req, res) => {
+app.get("/riverbed/:name", cors(corsOptions), (req, res) => {
   // TODO investigate CORS policy, set limits before deployment
   // res.set('Access-Control-Allow-Origin', 'localhost:7000');
-  const riverId = req.params._id;
+  const riverName = req.params.name;
 
   // search for the river with the matching ID using the model
   river
-    .findRiverById(riverId)
+    .findRiverByName(riverName)
     .then((river) => {
       // send the data if river is found else send 404
       if (river !== null) {
